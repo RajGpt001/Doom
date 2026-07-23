@@ -81,17 +81,9 @@ export const useAppStore = create<AppState>()(
       },
       isInWatchlist: (id) => get().watchlist.includes(id),
 
-      // Mock User
-      user: {
-        id: "usr_doom_01",
-        name: "Alex Vance",
-        email: "alex.vance@doomott.com",
-        avatarUrl:
-          "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80",
-        isPremium: true,
-        activeProfile: "Alex",
-      },
-      isLoggedIn: true,
+      // User Session - Default Logged Out
+      user: null,
+      isLoggedIn: false,
       loginMockUser: () =>
         set({
           isLoggedIn: true,
@@ -124,6 +116,8 @@ export const useAppStore = create<AppState>()(
         watchlist: state.watchlist,
         cookieConsent: state.cookieConsent,
         isMuted: state.isMuted,
+        isLoggedIn: state.isLoggedIn,
+        user: state.user,
       }),
     }
   )

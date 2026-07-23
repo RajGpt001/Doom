@@ -1,10 +1,8 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useUser } from "@clerk/nextjs";
-import { useAppStore } from "@/store/useAppStore";
 import {
   Zap,
   CheckCircle2,
@@ -38,22 +36,22 @@ const FAQS = [
 
 export default function LandingPage() {
   const router = useRouter();
-  const { isSignedIn, isLoaded } = useUser();
-  const { isLoggedIn: isAppLoggedIn } = useAppStore();
-
   const [emailInput, setEmailInput] = useState("");
   const [openFaq, setOpenFaq] = useState<number | null>(0);
 
-  // Auto-redirect logged-in users straight to the Media Catalog (/home)
-  useEffect(() => {
-    if (isLoaded && (isSignedIn || isAppLoggedIn)) {
-      router.push("/home");
-    }
-  }, [isSignedIn, isLoaded, isAppLoggedIn, router]);
-
   const handleStart = (e: React.FormEvent) => {
     e.preventDefault();
-    router.push("/welcome");
+    // Scroll smoothly to the login/signup section
+    const authSection = document.getElementById("auth-section");
+    if (authSection) {
+      authSection.scrollIntoView({ behavior: "smooth" });
+    } else {
+      router.push("/welcome");
+    }
+  };
+
+  const handleAuthSuccess = () => {
+    router.push("/home");
   };
 
   return (
@@ -110,7 +108,7 @@ export default function LandingPage() {
       </section>
 
       {/* 2. INLINE CLERK AUTHENTICATION SECTION (Sign In / Signup with Google) */}
-      <section className="max-w-4xl mx-auto px-4 space-y-6">
+      <section id="auth-section" className="max-w-4xl mx-auto px-4 space-y-6 scroll-mt-24">
         <div className="text-center space-y-2">
           <span className="px-2.5 py-1 text-[10px] font-black uppercase bg-[var(--surface-elevated)] border border-[var(--border)] text-[var(--accent-main)] rounded">
             CLERK SECURITY AUTHENTICATION
@@ -123,8 +121,8 @@ export default function LandingPage() {
           </p>
         </div>
 
-        {/* Embedded Clerk Auth Component */}
-        <AuthTabs onSuccess={() => router.push("/home")} />
+        {/* Embedded Clerk Auth Component -> Navigates to /home on success */}
+        <AuthTabs onSuccess={handleAuthSuccess} />
       </section>
 
       {/* 3. DUAL FEATURE SHOWCASE */}
