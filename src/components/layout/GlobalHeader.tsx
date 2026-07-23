@@ -3,11 +3,11 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Search, Bookmark, User, Zap, Film, Home, Menu, X } from "lucide-react";
+import { Search, Bookmark, Zap, Film, Home, Menu, X } from "lucide-react";
 import { LogoPlaceholder } from "@/components/common/LogoPlaceholder";
 import { ThemeToggle } from "@/components/common/ThemeToggle";
 import { useAppStore } from "@/store/useAppStore";
-import { UserButton, SignedIn, SignedOut, SignInButton } from "@clerk/nextjs";
+import { UserButton, SignedIn, SignedOut, SignInButton, useUser } from "@clerk/nextjs";
 import { cn } from "@/lib/utils";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -15,7 +15,10 @@ export function GlobalHeader() {
   const pathname = usePathname();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const { watchlist } = useAppStore();
+  const { watchlist, isLoggedIn: isAppLoggedIn } = useAppStore();
+  const { isSignedIn } = useUser();
+
+  const isLoggedIn = isSignedIn || isAppLoggedIn;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -26,7 +29,7 @@ export function GlobalHeader() {
   }, []);
 
   const navLinks = [
-    { name: "Home", href: "/", icon: Home },
+    { name: "Home", href: isLoggedIn ? "/home" : "/", icon: Home },
     { name: "Browse", href: "/browse", icon: Film },
     { name: "Micro-Dramas ⚡", href: "/shorts", icon: Zap, isSpecial: true },
     { name: "Search", href: "/search", icon: Search },
@@ -51,7 +54,7 @@ export function GlobalHeader() {
           {/* Nav Links (Desktop) */}
           <nav className="hidden lg:flex items-center gap-1">
             {navLinks.map((link) => {
-              const isActive = pathname === link.href;
+              const isActive = pathname === link.href || (link.name === "Home" && (pathname === "/" || pathname === "/home"));
               const Icon = link.icon;
               return (
                 <Link
@@ -110,7 +113,7 @@ export function GlobalHeader() {
             <SignedOut>
               <SignInButton mode="modal">
                 <button className="flex items-center gap-1.5 px-3 py-1.5 rounded-sm bg-[var(--accent-main)] text-[var(--accent-foreground)] font-display text-xs uppercase tracking-wider font-bold hover:brightness-110 transition-all cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent-main)]">
-                  <User className="w-3.5 h-3.5" /> Sign In
+                  Sign In
                 </button>
               </SignInButton>
             </SignedOut>

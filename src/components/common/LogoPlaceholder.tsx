@@ -2,13 +2,9 @@
 
 import React from "react";
 import Link from "next/link";
+import { useUser } from "@clerk/nextjs";
+import { useAppStore } from "@/store/useAppStore";
 
-/**
- * PLACEHOLDER COMPONENT: LogoPlaceholder.tsx
- *
- * This is a text-based wordmark placeholder for DOOM OTT.
- * When the official brand vector/SVG asset arrives, replace the JSX in this single file.
- */
 interface LogoPlaceholderProps {
   className?: string;
   size?: "sm" | "md" | "lg";
@@ -18,6 +14,10 @@ export function LogoPlaceholder({
   className = "",
   size = "md",
 }: LogoPlaceholderProps) {
+  const { isSignedIn } = useUser();
+  const { isLoggedIn: isAppLoggedIn } = useAppStore();
+  const isLoggedIn = isSignedIn || isAppLoggedIn;
+
   const sizeClasses = {
     sm: "text-lg tracking-wider",
     md: "text-xl md:text-2xl tracking-widest",
@@ -26,7 +26,7 @@ export function LogoPlaceholder({
 
   return (
     <Link
-      href="/"
+      href={isLoggedIn ? "/home" : "/"}
       className={`group inline-flex items-center gap-2 select-none focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent-main)] rounded-sm ${className}`}
       aria-label="DOOM OTT Home"
     >

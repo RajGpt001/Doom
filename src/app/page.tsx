@@ -1,8 +1,10 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useUser } from "@clerk/nextjs";
+import { useAppStore } from "@/store/useAppStore";
 import {
   Zap,
   CheckCircle2,
@@ -36,8 +38,18 @@ const FAQS = [
 
 export default function LandingPage() {
   const router = useRouter();
+  const { isSignedIn, isLoaded } = useUser();
+  const { isLoggedIn: isAppLoggedIn } = useAppStore();
+
   const [emailInput, setEmailInput] = useState("");
   const [openFaq, setOpenFaq] = useState<number | null>(0);
+
+  // Auto-redirect logged-in users straight to the Media Catalog (/home)
+  useEffect(() => {
+    if (isLoaded && (isSignedIn || isAppLoggedIn)) {
+      router.push("/home");
+    }
+  }, [isSignedIn, isLoaded, isAppLoggedIn, router]);
 
   const handleStart = (e: React.FormEvent) => {
     e.preventDefault();
