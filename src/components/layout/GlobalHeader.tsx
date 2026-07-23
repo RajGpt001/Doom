@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Search, Bookmark, User, Zap, Film, Tv, Home, Menu, X } from "lucide-react";
+import { Search, Bookmark, User, Zap, Film, Home, Menu, X } from "lucide-react";
 import { LogoPlaceholder } from "@/components/common/LogoPlaceholder";
 import { ThemeToggle } from "@/components/common/ThemeToggle";
 import { useAppStore } from "@/store/useAppStore";
@@ -15,8 +15,6 @@ export function GlobalHeader() {
   const pathname = usePathname();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isSearchOpen, setIsSearchOpen] = useState(false);
-  const [searchQuery, setSearchQuery] = useState("");
   const { watchlist } = useAppStore();
 
   useEffect(() => {
@@ -32,7 +30,7 @@ export function GlobalHeader() {
     { name: "Browse", href: "/browse", icon: Film },
     { name: "Micro-Dramas ⚡", href: "/shorts", icon: Zap, isSpecial: true },
     { name: "Search", href: "/search", icon: Search },
-    { name: "Entry Flow", href: "/welcome", icon: User },
+    { name: "Sign In", href: "/welcome", icon: User },
     { name: "Watchlist", href: "/watchlist", icon: Bookmark, badgeCount: watchlist.length },
   ];
 

@@ -8,7 +8,6 @@ import { OnboardingSlides } from "@/components/entry/OnboardingSlides";
 import { AuthTabs } from "@/components/entry/AuthTabs";
 import { LogoPlaceholder } from "@/components/common/LogoPlaceholder";
 import { ThemeToggle } from "@/components/common/ThemeToggle";
-import { Sparkles, ArrowRight, Shield } from "lucide-react";
 
 export default function WelcomePage() {
   const router = useRouter();
@@ -29,7 +28,7 @@ export default function WelcomePage() {
   return (
     <div className="relative min-h-[85vh] flex flex-col items-center justify-center px-4 py-8 select-none">
       
-      {/* Background Subtle Gradient Aura */}
+      {/* Background Subtle Flat Accent Aura */}
       <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-72 h-72 rounded-full bg-[var(--accent-main)]/10 filter blur-3xl pointer-events-none" />
 
       {/* Top Header Bar for Stage Navigation & Theme Toggle */}
@@ -103,29 +102,6 @@ export default function WelcomePage() {
           )}
 
         </AnimatePresence>
-      </div>
-
-      {/* Bottom Stage Switcher for Direct Testing */}
-      <div className="mt-8 flex items-center gap-3 text-xs text-[var(--text-muted)] z-20">
-        <span className="font-bold">Test Entry Flow:</span>
-        <button
-          onClick={() => setStage("splash")}
-          className="px-2.5 py-1 rounded bg-[var(--surface-elevated)] border border-[var(--border)] hover:border-[var(--accent-main)] transition-colors"
-        >
-          Replay Splash
-        </button>
-        <button
-          onClick={() => setStage("onboarding")}
-          className="px-2.5 py-1 rounded bg-[var(--surface-elevated)] border border-[var(--border)] hover:border-[var(--accent-main)] transition-colors"
-        >
-          Onboarding
-        </button>
-        <button
-          onClick={() => setStage("auth")}
-          className="px-2.5 py-1 rounded bg-[var(--surface-elevated)] border border-[var(--border)] hover:border-[var(--accent-main)] transition-colors"
-        >
-          Auth Page
-        </button>
       </div>
 
     </div>
