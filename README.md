@@ -1,105 +1,148 @@
-# 🎬 Doom OTT — Next-Gen Streaming Platform & Micro-Drama Feed
+<div align="center">
 
-[![Next.js 15](https://img.shields.io/badge/Next.js-15-black.svg?style=flat-square&logo=next.js)](https://nextjs.org/)
-[![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue.svg?style=flat-square&logo=typescript)](https://www.typescriptlang.org/)
-[![Tailwind CSS v4](https://img.shields.io/badge/Tailwind-v4-38bdf8.svg?style=flat-square&logo=tailwind-css)](https://tailwindcss.com/)
-[![Framer Motion](https://img.shields.io/badge/Framer_Motion-11.18-f00.svg?style=flat-square)](https://www.framer.com/motion/)
-[![Clerk Auth](https://img.shields.io/badge/Clerk-Auth-6C47FF.svg?style=flat-square)](https://clerk.com/)
-[![Recharts](https://img.shields.io/badge/Recharts-2.15-22c55e.svg?style=flat-square)](https://recharts.org/)
+# 🎬 DOOM OTT
+### Premium Streaming Platform & Vertical Micro-Drama Feed
 
-**Doom OTT** is a premium Over-The-Top (OTT) streaming platform engineered with Next.js 15 App Router, TypeScript, Framer Motion, and Tailwind CSS. It introduces a unique hybrid format combining 4K feature films & series with a **signature 1-minute vertical micro-drama feed**.
+[![Next.js 15](https://img.shields.io/badge/Next.js-15.1-000000?style=for-the-badge&logo=next.js&logoColor=white)](https://nextjs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.0-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![Tailwind CSS v4](https://img.shields.io/badge/Tailwind_CSS-v4.0-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white)](https://tailwindcss.com/)
+[![Framer Motion](https://img.shields.io/badge/Framer_Motion-11.18-E10098?style=for-the-badge&logo=framer&logoColor=white)](https://www.framer.com/motion/)
+[![Clerk Auth](https://img.shields.io/badge/Clerk-Authentication-6C47FF?style=for-the-badge&logo=clerk&logoColor=white)](https://clerk.com/)
+[![Recharts](https://img.shields.io/badge/Recharts-2.15-22C55E?style=for-the-badge)](https://recharts.org/)
+
+<p align="center">
+  <b>Doom OTT</b> is a next-generation Over-The-Top (OTT) video streaming web application designed with <b>Next.js 15 App Router</b>, <b>Tailwind CSS v4</b>, and <b>Framer Motion</b>.
+  <br />
+  Features a dual-experience architecture: <b>4K Cinematic VOD Catalog</b> alongside a signature <b>Vertical 3D Micro-Drama Feed</b>.
+</p>
+
+</div>
 
 ---
 
-## 🚀 Key Highlights & Architectural Features
+## ⚡ Key Highlights & Core Features
 
+### 🍿 Consumer Streaming Experience
 - ⚡ **Signature Vertical Short-Form Feed (`/shorts`)**:
-  - Differentiated chaptered presentation (*Episode 1 of 8*) with a mini progress rail across the top.
-  - 3D Framer Motion perspective transforms (`rotateX`) with `prefers-reduced-motion` accessibility support.
-  - Interactive overlay controls: Likes, Watchlist bookmarking, Link sharing, Mute toggle, and Next Ep quick navigation.
-- 🎨 **Strict Matte Design Philosophy**:
-  - **No glossy, shiny, or skeuomorphic panels**. Confident obsidian charcoal matte base (`#0B0B0C`) with Electric Amber (`#FF9F1C`) and Acid Lime (`#CCFF00`) kinetic accents.
-- 🔐 **Clerk Powered Authentication**:
-  - Email/password, OTP code verification, and Google social sign-in pre-wired with fallback test key support for seamless backend swap-in.
-- 🌐 **Comprehensive 18-Module Admin Console (`/admin/dashboard`)**:
-  - Utility-first administrative dashboard covering Content Management, EPG Scheduling, Live IPTV Streams, User Suspension, Pricing Controls, Recharts Revenue Analytics, Gateways, and Support Desk.
-- 🌓 **Double Theme Engine**:
-  - Dark mode obsidian charcoal base + Light mode warm off-white matte base (`#F8F7F4`) with custom font pairing (`Syne` display + `Plus Jakarta Sans` body).
+  - Differentiated **Chaptered Presentation** (*Episode 1 of 8*) with top progress rails.
+  - Interactive **Framer Motion 3D card-flip perspective transforms** (`rotateX`).
+  - Automatic `prefers-reduced-motion` accessibility support (2D smooth opacity fallback).
+  - Overlay action controls: Like counter, Watchlist bookmarking, Link sharing toast, Mute toggle, and Next Ep CTA.
+- 🎨 **Matte Design System Philosophy**:
+  - **Zero Glossy / No Skeuomorphic Blur Sheen**. Confident, high-contrast matte obsidian charcoal (`#0B0B0C`) with Electric Amber (`#FF9F1C`) and Acid Lime (`#CCFF00`) kinetic accents.
+- 🌓 **Dynamic Theme Engine**:
+  - Dual obsidian dark mode and warm off-white matte light mode (`#F8F7F4`) with custom font hierarchy (`Syne` display + `Plus Jakarta Sans` body).
+- 🔐 **Clerk Authentication Integration**:
+  - Email/Password, Email/Phone OTP, and Google Social Login pre-configured with fallback test keys for trivial backend swap-in.
+- 📱 **100% Responsive Coverage**:
+  - Desktop navigation + mobile hamburger drawer ([GlobalHeader.tsx](file:///c:/Users/Raj%20Gupta/OneDrive/Desktop/Doom/src/components/layout/GlobalHeader.tsx)).
 
 ---
 
-## 🛠️ Stack & Dependencies
+### 🛡️ 18-Module Admin Management Console (`/admin/*`)
+Dense, utility-first internal management dashboard powered by **Recharts**:
 
-- **Framework**: Next.js 15.1 (App Router) with React 19 & TypeScript 5
-- **Styling**: Tailwind CSS v4 (`@import "tailwindcss";`) & Vanilla CSS design tokens
-- **Animations**: Framer Motion 11.18.2
-- **State Management**: Zustand 5.0 (Persisted watchlist, player mute, cookie consent)
-- **Authentication**: Clerk (`@clerk/nextjs`)
-- **Analytics & Data Vis**: Recharts 2.15
-- **Icons**: Lucide React
-
----
-
-## 📁 Application Routes & Structure
-
-### Consumer Platform (Parts 0–5)
-- `/` — Homepage with hero carousel spotlight, continue watching, & category rows
-- `/browse` — Filterable catalog grid with animated layout transitions
-- `/search` — Live-filtering search bar with debounced input and recent queries
-- `/title/[id]` — Content detail view with 4K trailer modal, cast, & related titles
-- `/shorts` — Signature 3D chaptered vertical short-form feed
-- `/welcome` — Entry flow (animated splash -> swipeable onboarding -> auth tabs)
-- `/watchlist` — Personal saved media grid with category filter pills
-- `/plans` — Tiered subscription pricing cards & detailed feature table
-- `/checkout` — PCI-DSS style checkout form (Credit Card, UPI, NetBanking) with Suspense
-- `/billing` — Transaction history table with downloadable PDF receipts
-- `/profiles` — Multi-profile switcher & Kids profile restriction creator
-- `/account` — Email, password, & social identity management
-- `/parental-controls` — 4-Digit PIN-gated maturity rating restrictions
-- `/notifications` — Activity alert log & preference toggles
-- `/reviews` — Rating history & user comments
-- `/legal/[slug]` — Shared text template (`/legal/faq`, `/legal/privacy`, `/legal/terms`, `/legal/about`, `/legal/contact`)
-
-### Admin Management Console (Part 6)
-- `/admin/login` — Administrative authentication entry point
-- `/admin/dashboard` — Overview with Recharts revenue trajectory & subscriber metrics
-- `/admin/content` — VOD content catalog CRUD table
-- `/admin/live-channels` — Live RTMP/HLS channel stream manager
-- `/admin/epg` — Electronic Program Guide schedule matrix
-- `/admin/genres` — Category & genre taxonomy editor
-- `/admin/banners` — Homepage hero banner slider ordering
-- `/admin/users` — Subscriber account suspension & plan tier editor
-- `/admin/plans` — Plan pricing & simultaneous screen limit editor
-- `/admin/transactions` — Live gateway payment event watch list
-- `/admin/payment-gateways` — Stripe & Razorpay API key configuration
-- `/admin/coupons` — Promo code & discount generator
-- `/admin/notifications` — Instant push notification broadcast dispatcher
-- `/admin/reports` — Recharts revenue analytics & watch-hour distribution
-- `/admin/reviews` — Community review approval & spam moderation
-- `/admin/roles` — Sub-admin RBAC role-based access control permissions
-- `/admin/cms` — Legal policy document editor
-- `/admin/support` — Customer support ticket help desk
+| Module | Route | Key Purpose |
+| :--- | :--- | :--- |
+| **Admin Login** | `/admin/login` | Secure internal access portal |
+| **Dashboard Overview** | `/admin/dashboard` | **Recharts** Area & Bar chart metrics (Revenue & Growth) |
+| **Content Management** | `/admin/content` | VOD movie and original series CRUD table |
+| **Live Channels** | `/admin/live-channels` | IPTV RTMP/HLS stream status monitors |
+| **EPG Scheduling** | `/admin/epg` | Electronic Program Guide schedule builder |
+| **Categories & Genres** | `/admin/genres` | Genre taxonomy & content counts |
+| **Banners & Sliders** | `/admin/banners` | Homepage hero carousel priority ordering |
+| **User Management** | `/admin/users` | Account suspension & tier management |
+| **Subscription Plans** | `/admin/plans` | Pricing tiers & screen limitation controls |
+| **Transaction Log** | `/admin/transactions` | Live payment event monitor (Stripe, Razorpay) |
+| **Payment Gateways** | `/admin/payment-gateways` | Stripe & Razorpay API credentials config |
+| **Coupons & Discounts** | `/admin/coupons` | Promo code generator & usage tracking |
+| **Push Notifications** | `/admin/notifications` | Broadcast push notification dispatcher |
+| **Reports & Analytics** | `/admin/reports` | **Recharts** Pie & Bar chart financial analytics |
+| **Review Moderation** | `/admin/reviews` | Community comment moderation & spam filter |
+| **Roles & Permissions** | `/admin/roles` | Sub-admin RBAC permission matrix |
+| **CMS Page Editor** | `/admin/cms` | WYSIWYG legal policy & TOS document editor |
+| **Support Help Desk** | `/admin/support` | Ticket resolution & customer inquiry desk |
 
 ---
 
-## ⚡ Getting Started
+## 🛠️ Technology Stack
 
-### 1. Install Dependencies
+```text
+Doom OTT Architecture
+├── Framework       : Next.js 15.1 (App Router) + React 19 + TypeScript 5
+├── Styling         : Tailwind CSS v4 (@import "tailwindcss") + Custom CSS Tokens
+├── Motion          : Framer Motion 11.18.2 (3D transforms & layout animations)
+├── State           : Zustand 5.0 (Persisted watchlist, mute state, cookie consent)
+├── Auth            : Clerk (@clerk/nextjs)
+├── Charts          : Recharts 2.15
+└── Icons           : Lucide React
+```
+
+---
+
+## 🗺️ Application Directory Map
+
+```text
+src/
+├── app/
+│   ├── page.tsx               # Homepage with HeroCarousel & SectionRows
+│   ├── browse/page.tsx        # Filterable media grid with animated layout
+│   ├── search/page.tsx        # Live-filtering search bar with debounced input
+│   ├── title/[id]/page.tsx    # Content detail page with 4K trailer hero
+│   ├── shorts/page.tsx        # Vertical 3D micro-drama chaptered feed
+│   ├── welcome/page.tsx       # Entry flow (Splash -> Onboarding -> Auth)
+│   ├── watchlist/page.tsx     # Unified personal watchlist grid
+│   ├── plans/page.tsx         # Tiered subscription pricing cards & comparison
+│   ├── checkout/page.tsx      # PCI-DSS checkout form with Suspense
+│   ├── billing/page.tsx       # Transaction history with PDF receipt downloads
+│   ├── profiles/page.tsx      # Multi-profile manager with Kids profile flag
+│   ├── account/page.tsx       # Security credentials & linked Clerk socials
+│   ├── parental-controls/     # 4-Digit PIN-gated maturity rating restrictions
+│   ├── notifications/         # Activity alert feed & notification preferences
+│   ├── reviews/               # Rating & review history
+│   ├── legal/[slug]/          # Shared legal text template (FAQ, Privacy, Terms)
+│   └── admin/                 # 18-Module Administrative Console
+│       ├── layout.tsx         # Admin sidebar shell + topbar
+│       ├── dashboard/page.tsx # Recharts revenue trajectory & subscriber metrics
+│       ├── content/page.tsx   # Media catalog CRUD table
+│       └── ...                # 16 additional administrative routes
+├── components/
+│   ├── cards/                 # LongFormCard & ShortFormCard components
+│   ├── common/                # LogoPlaceholder, ThemeToggle, CookieBanner
+│   ├── entry/                 # SplashScreen, OnboardingSlides, AuthTabs
+│   ├── home/                  # HeroCarousel spotlight
+│   ├── layout/                # GlobalHeader & GlobalFooter
+│   └── shorts/                # ShortPlayerCard with 3D card flips & progress rail
+├── data/
+│   └── mockMedia.ts           # Extended media catalog & chaptered shorts dataset
+└── store/
+    └── useAppStore.ts         # Zustand persisted store
+```
+
+---
+
+## 🚀 Getting Started
+
+### 1. Installation
 ```bash
+git clone https://github.com/RajGpt001/Doom.git
+cd Doom
 npm install
 ```
 
-### 2. Run Local Development Server
+### 2. Development Server
 ```bash
 npm run dev
 ```
-Open [http://localhost:3000](http://localhost:3000) in your browser.
+Open [http://localhost:3000](http://localhost:3000) to view the consumer platform or [http://localhost:3000/admin/dashboard](http://localhost:3000/admin/dashboard) for the admin console.
 
-### 3. Production Build & Export Verification
+### 3. Production Build
 ```bash
 npm run build
 ```
 
 ---
 
-<p align="center">Crafted with precision for cinema lovers & vertical short-form enthusiasts.</p>
+<div align="center">
+  <sub>Built with ❤️ for cinema lovers and vertical short-form enthusiasts.</sub>
+</div>
