@@ -1,0 +1,81 @@
+@import "tailwindcss";
+
+/* 
+ * COLOR SYSTEM JUSTIFICATION:
+ * DOOM OTT uses an Electric Amber / Acid Ochre accent (#FF9F1C in Dark Mode, #D97706 in Light Mode)
+ * paired with deep matte Obsidian-Charcoal surfaces (#0B0B0C / #141416).
+ * This intentionally avoids cliché Netflix-red and Hotstar-blue tropes in favor of an intense,
+ * editorial, high-contrast visual identity that resembles a glowing film projector in a dark cinema room.
+ * Short-form Micro-Dramas feature a distinct Acid Lime (#CCFF00) kinetic accent for a high-energy rhythm.
+ */
+
+:root {
+  /* Light Theme (Warm Off-White Base) */
+  --bg-base: #F8F7F4;
+  --surface-base: #EFECE6;
+  --surface-elevated: #E3DDD4;
+  --surface-hover: #D6CFB4;
+  --border: #D2CBBF;
+  --foreground: #141416;
+  --text-muted: #60606A;
+  
+  --accent-main: #D97706;
+  --accent-hover: #B45309;
+  --accent-subtle: rgba(217, 119, 6, 0.12);
+  --accent-foreground: #FFFFFF;
+
+  --micro-drama-accent: #4D7C0F;
+  --micro-drama-bg: #F4F6EE;
+}
+
+.dark {
+  /* Dark Theme (Obsidian Charcoal Matte Base) */
+  --bg-base: #0B0B0C;
+  --surface-base: #141416;
+  --surface-elevated: #1E1E22;
+  --surface-hover: #26262B;
+  --border: #2A2A30;
+  --foreground: #F4F4F6;
+  --text-muted: #9E9EA8;
+  
+  --accent-main: #FF9F1C;
+  --accent-hover: #FFB703;
+  --accent-subtle: rgba(255, 159, 28, 0.12);
+  --accent-foreground: #0B0B0C;
+
+  --micro-drama-accent: #CCFF00;
+  --micro-drama-bg: #12160A;
+}
+
+body {
+  background-color: var(--bg-base);
+  color: var(--foreground);
+  font-family: var(--font-body), sans-serif;
+  overflow-x: hidden;
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+/* Custom Typography Utility Classes */
+.font-display {
+  font-family: var(--font-display), sans-serif;
+}
+
+/* Custom Scrollbar Utilities */
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-none {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Strict Matte Surface System - NO GLOSSY / GLASSMORPHISM */
+.matte-surface {
+  background-color: var(--surface-base);
+  border: 1px solid var(--border);
+}
+
+.matte-elevated {
+  background-color: var(--surface-elevated);
+  border: 1px solid var(--border);
+}
