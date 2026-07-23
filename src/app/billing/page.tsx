@@ -1,13 +1,13 @@
 "use client";
 
 import React from "react";
-import { Download, CreditCard, Receipt, ShieldCheck } from "lucide-react";
+import { Download, Receipt } from "lucide-react";
 
 const TRANSACTIONS = [
-  { id: "INV-2026-004", date: "2026-07-01", plan: "DOOM STANDARD 4K", amount: "$12.99", status: "Paid", card: "•••• 8912" },
-  { id: "INV-2026-003", date: "2026-06-01", plan: "DOOM STANDARD 4K", amount: "$12.99", status: "Paid", card: "•••• 8912" },
-  { id: "INV-2026-002", date: "2026-05-01", plan: "DOOM STANDARD 4K", amount: "$12.99", status: "Paid", card: "•••• 8912" },
-  { id: "INV-2026-001", date: "2026-04-01", plan: "DOOM BASIC", amount: "$6.99", status: "Paid", card: "•••• 8912" },
+  { id: "INV-2026-004", date: "2026-07-01", plan: "DOOM STANDARD 4K", amount: "₹499", status: "Paid", card: "UPI (user@upi)" },
+  { id: "INV-2026-003", date: "2026-06-01", plan: "DOOM STANDARD 4K", amount: "₹499", status: "Paid", card: "UPI (user@upi)" },
+  { id: "INV-2026-002", date: "2026-05-01", plan: "DOOM STANDARD 4K", amount: "₹499", status: "Paid", card: "UPI (user@upi)" },
+  { id: "INV-2026-001", date: "2026-04-01", plan: "DOOM BASIC", amount: "₹149", status: "Paid", card: "UPI (user@upi)" },
 ];
 
 export default function PaymentHistoryPage() {
@@ -46,7 +46,7 @@ export default function PaymentHistoryPage() {
                 <td className="py-3 px-4 font-mono font-bold text-[var(--accent-main)]">{tx.id}</td>
                 <td className="py-3 px-4">{tx.date}</td>
                 <td className="py-3 px-4 font-semibold">{tx.plan}</td>
-                <td className="py-3 px-4 text-[var(--text-muted)]">Card ({tx.card})</td>
+                <td className="py-3 px-4 text-[var(--text-muted)]">{tx.card}</td>
                 <td className="py-3 px-4 font-bold">{tx.amount}</td>
                 <td className="py-3 px-4">
                   <span className="px-2 py-0.5 rounded bg-emerald-950/60 text-emerald-400 border border-emerald-800/40 text-[10px] font-bold uppercase">

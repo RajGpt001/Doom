@@ -11,7 +11,7 @@ function CheckoutContent() {
   const router = useRouter();
   const planId = searchParams.get("plan") || "standard-4k";
 
-  const [paymentMethod, setPaymentMethod] = useState<"card" | "upi" | "netbanking">("card");
+  const [paymentMethod, setPaymentMethod] = useState<"card" | "upi" | "netbanking">("upi");
   const [cardNumber, setCardNumber] = useState("");
   const [cardExpiry, setCardExpiry] = useState("");
   const [cardCvc, setCardCvc] = useState("");
@@ -22,9 +22,12 @@ function CheckoutContent() {
   const [isSuccess, setIsSuccess] = useState(false);
 
   const planPrices: Record<string, { name: string; price: string }> = {
-    basic: { name: "DOOM BASIC", price: "$6.99" },
-    "standard-4k": { name: "DOOM STANDARD 4K", price: "$12.99" },
-    "premium-ultra": { name: "DOOM PREMIUM ULTRA", price: "$17.99" },
+    basic: { name: "DOOM BASIC", price: "₹149" },
+    "doom-basic": { name: "DOOM BASIC", price: "₹149" },
+    "standard-4k": { name: "DOOM STANDARD 4K", price: "₹499" },
+    "doom-standard-4k": { name: "DOOM STANDARD 4K", price: "₹499" },
+    "premium-ultra": { name: "DOOM PREMIUM ULTRA", price: "₹799" },
+    "doom-premium-ultra": { name: "DOOM PREMIUM ULTRA", price: "₹799" },
   };
 
   const selectedPlan = planPrices[planId] || planPrices["standard-4k"];
@@ -60,19 +63,6 @@ function CheckoutContent() {
               <div className="grid grid-cols-3 gap-3">
                 <button
                   type="button"
-                  onClick={() => setPaymentMethod("card")}
-                  className={cn(
-                    "p-3 rounded border text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-1.5 transition-colors cursor-pointer",
-                    paymentMethod === "card"
-                      ? "bg-[var(--accent-main)] text-[var(--accent-foreground)] border-[var(--accent-main)]"
-                      : "bg-[var(--surface-elevated)] border-[var(--border)] text-[var(--foreground)]"
-                  )}
-                >
-                  <CreditCard className="w-4 h-4" /> Card
-                </button>
-
-                <button
-                  type="button"
                   onClick={() => setPaymentMethod("upi")}
                   className={cn(
                     "p-3 rounded border text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-1.5 transition-colors cursor-pointer",
@@ -82,6 +72,19 @@ function CheckoutContent() {
                   )}
                 >
                   UPI / QR
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => setPaymentMethod("card")}
+                  className={cn(
+                    "p-3 rounded border text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-1.5 transition-colors cursor-pointer",
+                    paymentMethod === "card"
+                      ? "bg-[var(--accent-main)] text-[var(--accent-foreground)] border-[var(--accent-main)]"
+                      : "bg-[var(--surface-elevated)] border-[var(--border)] text-[var(--foreground)]"
+                  )}
+                >
+                  <CreditCard className="w-4 h-4" /> Card
                 </button>
 
                 <button
@@ -101,6 +104,22 @@ function CheckoutContent() {
 
             {/* Payment Fields */}
             <form onSubmit={handlePaymentSubmit} className="space-y-4">
+              {paymentMethod === "upi" && (
+                <div className="space-y-1">
+                  <label className="text-[11px] font-bold uppercase tracking-wider text-[var(--text-muted)]">
+                    Virtual Payment Address (VPA) / UPI ID
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="name@upi (e.g. user@okicici)"
+                    value={upiId}
+                    onChange={(e) => setUpiId(e.target.value)}
+                    required
+                    className="w-full px-3 py-2 rounded bg-[var(--surface-elevated)] border border-[var(--border)] text-xs text-[var(--foreground)] focus:border-[var(--accent-main)] focus:outline-none"
+                  />
+                </div>
+              )}
+
               {paymentMethod === "card" && (
                 <>
                   <div className="space-y-1">
@@ -109,7 +128,7 @@ function CheckoutContent() {
                     </label>
                     <input
                       type="text"
-                      placeholder="Alex Vance"
+                      placeholder="Cardholder Name"
                       value={cardName}
                       onChange={(e) => setCardName(e.target.value)}
                       required
@@ -164,22 +183,6 @@ function CheckoutContent() {
                 </>
               )}
 
-              {paymentMethod === "upi" && (
-                <div className="space-y-1">
-                  <label className="text-[11px] font-bold uppercase tracking-wider text-[var(--text-muted)]">
-                    Virtual Payment Address (VPA) / UPI ID
-                  </label>
-                  <input
-                    type="text"
-                    placeholder="alex.vance@okicici"
-                    value={upiId}
-                    onChange={(e) => setUpiId(e.target.value)}
-                    required
-                    className="w-full px-3 py-2 rounded bg-[var(--surface-elevated)] border border-[var(--border)] text-xs text-[var(--foreground)] focus:border-[var(--accent-main)] focus:outline-none"
-                  />
-                </div>
-              )}
-
               <button
                 type="submit"
                 disabled={isLoading}
@@ -198,7 +201,7 @@ function CheckoutContent() {
 
             <div className="flex items-center justify-center gap-2 text-[10px] text-[var(--text-muted)] pt-2">
               <ShieldCheck className="w-4 h-4 text-[var(--accent-main)]" />
-              <span>PCI-DSS Compliant Gateway Ready (Stripe / Razorpay Slot-in ready)</span>
+              <span>PCI-DSS Compliant Payment Gateway Ready (Razorpay / Stripe)</span>
             </div>
           </div>
 
@@ -222,13 +225,13 @@ function CheckoutContent() {
                 <span>{selectedPlan.price}</span>
               </div>
               <div className="flex justify-between text-[var(--text-muted)]">
-                <span>Estimated Tax:</span>
-                <span>$0.00</span>
+                <span>GST Tax (18% included):</span>
+                <span>₹0.00</span>
               </div>
             </div>
 
             <div className="pt-3 border-t border-[var(--border)] flex justify-between font-display font-bold text-sm text-[var(--foreground)]">
-              <span>Total Due Today:</span>
+              <span>Total Payable:</span>
               <span className="text-[var(--accent-main)]">{selectedPlan.price}</span>
             </div>
           </div>
@@ -241,7 +244,7 @@ function CheckoutContent() {
           animate={{ opacity: 1, scale: 1 }}
           className="p-10 rounded-lg bg-[var(--surface-elevated)] border border-[var(--border)] text-center max-w-lg mx-auto space-y-4"
         >
-          <CheckCircle2 className="w-16 h-16 text-emerald-400 mx-auto animate-bounce" />
+          <CheckCircle2 className="w-16 h-16 text-emerald-500 mx-auto animate-bounce" />
           <h2 className="font-display font-black uppercase text-2xl text-[var(--foreground)]">
             Subscription Active!
           </h2>
@@ -250,7 +253,7 @@ function CheckoutContent() {
           </p>
 
           <button
-            onClick={() => router.push("/")}
+            onClick={() => router.push("/home")}
             className="px-6 py-3 rounded bg-[var(--accent-main)] text-[var(--accent-foreground)] font-display font-extrabold text-xs uppercase tracking-wider hover:brightness-110 transition-all cursor-pointer"
           >
             Start Watching Now →

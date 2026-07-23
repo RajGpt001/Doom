@@ -30,7 +30,6 @@ export function GlobalHeader() {
     { name: "Browse", href: "/browse", icon: Film },
     { name: "Micro-Dramas ⚡", href: "/shorts", icon: Zap, isSpecial: true },
     { name: "Search", href: "/search", icon: Search },
-    { name: "Sign In", href: "/welcome", icon: User },
     { name: "Watchlist", href: "/watchlist", icon: Bookmark, badgeCount: watchlist.length },
   ];
 
@@ -80,7 +79,7 @@ export function GlobalHeader() {
           </nav>
         </div>
 
-        {/* Right: Search + Theme Toggle + Mobile Menu Trigger */}
+        {/* Right: Search + Theme Toggle + User Profile */}
         <div className="flex items-center gap-2.5">
           
           {/* Search Box */}

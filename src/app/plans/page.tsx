@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Check, Zap, Shield, Sparkles, Tv, Monitor, Smartphone, HelpCircle } from "lucide-react";
+import { Check, Zap } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface Plan {
@@ -21,7 +21,7 @@ const PLANS: Plan[] = [
   {
     id: "basic",
     name: "DOOM BASIC",
-    price: "$6.99",
+    price: "₹149",
     billingPeriod: "per month",
     resolution: "1080p Full HD",
     devicesCount: 1,
@@ -35,7 +35,7 @@ const PLANS: Plan[] = [
   {
     id: "standard-4k",
     name: "DOOM STANDARD 4K",
-    price: "$12.99",
+    price: "₹499",
     billingPeriod: "per month",
     resolution: "4K Ultra HD + HDR10",
     devicesCount: 2,
@@ -53,7 +53,7 @@ const PLANS: Plan[] = [
   {
     id: "premium-ultra",
     name: "DOOM PREMIUM ULTRA",
-    price: "$17.99",
+    price: "₹799",
     billingPeriod: "per month",
     resolution: "4K HDR10+ & Dolby Vision",
     devicesCount: 4,
@@ -98,7 +98,6 @@ export default function SubscriptionPlansPage() {
       {/* Tiered Plan Cards Grid */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 items-stretch">
         {PLANS.map((plan) => {
-          const isSelected = selectedPlanId === plan.id;
           return (
             <div
               key={plan.id}
@@ -106,7 +105,7 @@ export default function SubscriptionPlansPage() {
               className={cn(
                 "relative rounded-lg p-6 sm:p-8 flex flex-col justify-between transition-all cursor-pointer bg-[var(--surface-elevated)] border-2",
                 plan.isPopular
-                  ? "border-[var(--accent-main)] shadow-2xl"
+                  ? "border-[var(--accent-main)] shadow-xl"
                   : "border-[var(--border)] hover:border-[var(--text-muted)]"
               )}
             >
@@ -189,9 +188,9 @@ export default function SubscriptionPlansPage() {
             <tbody className="divide-y divide-[var(--border)]/60">
               <tr>
                 <td className="py-3 px-4 font-semibold">Monthly Price</td>
-                <td className="py-3 px-4">$6.99</td>
-                <td className="py-3 px-4">$12.99</td>
-                <td className="py-3 px-4 text-[var(--accent-main)] font-bold">$17.99</td>
+                <td className="py-3 px-4">₹149</td>
+                <td className="py-3 px-4">₹499</td>
+                <td className="py-3 px-4 text-[var(--accent-main)] font-bold">₹799</td>
               </tr>
               <tr>
                 <td className="py-3 px-4 font-semibold">Video Resolution</td>

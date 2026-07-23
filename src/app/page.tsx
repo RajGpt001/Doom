@@ -3,19 +3,13 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { motion, AnimatePresence } from "framer-motion";
 import {
   Zap,
-  Film,
-  Tv,
   CheckCircle2,
   ChevronRight,
-  ShieldCheck,
   Plus,
   Minus,
-  Sparkles,
   ArrowRight,
-  User,
 } from "lucide-react";
 import { AuthTabs } from "@/components/entry/AuthTabs";
 import { FULL_CATALOG_ITEMS, MOCK_SHORT_FORM_SERIES } from "@/data/mockMedia";
@@ -44,20 +38,19 @@ export default function LandingPage() {
   const router = useRouter();
   const [emailInput, setEmailInput] = useState("");
   const [openFaq, setOpenFaq] = useState<number | null>(0);
-  const [showAuthModal, setShowAuthModal] = useState(false);
 
   const handleStart = (e: React.FormEvent) => {
     e.preventDefault();
-    setShowAuthModal(true);
+    router.push("/welcome");
   };
 
   return (
     <div className="space-y-16 pb-16 select-none">
       
       {/* 1. HERO LANDING BANNER SECTION */}
-      <section className="relative min-h-[80vh] flex flex-col items-center justify-center text-center px-4 pt-12 pb-16 overflow-hidden rounded-b-2xl border-b border-[var(--border)] bg-[var(--surface-elevated)]">
+      <section className="relative min-h-[75vh] flex flex-col items-center justify-center text-center px-4 pt-12 pb-16 overflow-hidden rounded-b-2xl border-b border-[var(--border)] bg-[var(--surface-elevated)]">
         
-        {/* Subtle Matte Ambient Glow */}
+        {/* Subtle Ambient Glow */}
         <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full bg-[var(--accent-main)]/10 filter blur-[120px] pointer-events-none" />
 
         <div className="max-w-4xl mx-auto space-y-6 relative z-10">
@@ -96,9 +89,9 @@ export default function LandingPage() {
           </form>
 
           <div className="flex items-center justify-center gap-6 text-xs text-[var(--text-muted)] font-medium pt-2">
-            <span className="flex items-center gap-1"><CheckCircle2 className="w-4 h-4 text-emerald-400" /> Cancel Anytime</span>
-            <span className="flex items-center gap-1"><CheckCircle2 className="w-4 h-4 text-emerald-400" /> 4K Ultra HD</span>
-            <span className="flex items-center gap-1"><CheckCircle2 className="w-4 h-4 text-emerald-400" /> Multi-Profiles</span>
+            <span className="flex items-center gap-1"><CheckCircle2 className="w-4 h-4 text-emerald-500" /> Cancel Anytime</span>
+            <span className="flex items-center gap-1"><CheckCircle2 className="w-4 h-4 text-emerald-500" /> 4K Ultra HD</span>
+            <span className="flex items-center gap-1"><CheckCircle2 className="w-4 h-4 text-emerald-500" /> Multi-Profiles</span>
           </div>
 
         </div>
@@ -108,7 +101,7 @@ export default function LandingPage() {
       <section className="max-w-4xl mx-auto px-4 space-y-6">
         <div className="text-center space-y-2">
           <span className="px-2.5 py-1 text-[10px] font-black uppercase bg-[var(--surface-elevated)] border border-[var(--border)] text-[var(--accent-main)] rounded">
-            CLERK POWERED ACCESS
+            CLERK SECURITY AUTHENTICATION
           </span>
           <h2 className="font-display font-black uppercase text-2xl sm:text-3xl text-[var(--foreground)]">
             Sign In or Create Your Account
@@ -122,7 +115,7 @@ export default function LandingPage() {
         <AuthTabs onSuccess={() => router.push("/home")} />
       </section>
 
-      {/* 3. DUAL FEATURE SHOWCASE: 4K LONG-FORM VS VERTICAL SHORTS */}
+      {/* 3. DUAL FEATURE SHOWCASE */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
         
         {/* Showcase 1: 4K Cinema */}
@@ -203,7 +196,7 @@ export default function LandingPage() {
 
       </section>
 
-      {/* 4. TIERED SUBSCRIPTION PRICING SHOWCASE */}
+      {/* 4. TIERED PRICING IN INR (₹) */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
         <div className="text-center max-w-xl mx-auto space-y-2">
           <span className="px-2.5 py-1 text-[10px] font-black uppercase bg-[var(--accent-subtle)] text-[var(--accent-main)] rounded border border-[var(--accent-main)]/30">
@@ -219,9 +212,9 @@ export default function LandingPage() {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {[
-            { name: "DOOM BASIC", price: "$6.99", quality: "1080p Full HD", screens: "1 Screen" },
-            { name: "DOOM STANDARD 4K", price: "$12.99", quality: "4K Ultra HD", screens: "2 Screens", popular: true },
-            { name: "DOOM PREMIUM ULTRA", price: "$17.99", quality: "4K HDR10+ & Dolby Vision", screens: "4 Screens" },
+            { name: "DOOM BASIC", price: "₹149", quality: "1080p Full HD", screens: "1 Screen" },
+            { name: "DOOM STANDARD 4K", price: "₹499", quality: "4K Ultra HD", screens: "2 Screens", popular: true },
+            { name: "DOOM PREMIUM ULTRA", price: "₹799", quality: "4K HDR10+ & Dolby Vision", screens: "4 Screens" },
           ].map((p) => (
             <div
               key={p.name}

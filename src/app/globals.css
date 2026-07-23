@@ -1,50 +1,48 @@
 @import "tailwindcss";
 
 /* 
- * COLOR SYSTEM JUSTIFICATION:
- * DOOM OTT uses an Electric Amber / Acid Ochre accent (#FF9F1C in Dark Mode, #D97706 in Light Mode)
- * paired with deep matte Obsidian-Charcoal surfaces (#0B0B0C / #141416).
- * This intentionally avoids cliché Netflix-red and Hotstar-blue tropes in favor of an intense,
- * editorial, high-contrast visual identity that resembles a glowing film projector in a dark cinema room.
- * Short-form Micro-Dramas feature a distinct Acid Lime (#CCFF00) kinetic accent for a high-energy rhythm.
+ * DOOM OTT COLOR SYSTEM:
+ * Dark Mode: Deep Obsidian Charcoal (#09090B) with Electric Amber (#FF9F1C)
+ * Light Mode: Clean Studio White (#FFFFFF / #F4F4F6) with Deep Coral Amber (#E11D48 / #D97706)
+ * Micro-Dramas Feed: Kinetic Acid Lime (#CCFF00 in Dark, #4D7C0F in Light)
  */
 
 :root {
-  /* Light Theme (Warm Off-White Base) */
-  --bg-base: #F8F7F4;
-  --surface-base: #EFECE6;
-  --surface-elevated: #E3DDD4;
-  --surface-hover: #D6CFB4;
-  --border: #D2CBBF;
-  --foreground: #141416;
-  --text-muted: #60606A;
+  /* Light Theme (Crisp Studio White Base) */
+  --bg-base: #FAFAFA;
+  --surface-base: #F4F4F6;
+  --surface-elevated: #FFFFFF;
+  --surface-hover: #EBECEF;
+  --border: #E2E4E9;
+  --foreground: #0F172A;
+  --text-muted: #64748B;
   
   --accent-main: #D97706;
   --accent-hover: #B45309;
-  --accent-subtle: rgba(217, 119, 6, 0.12);
+  --accent-subtle: rgba(217, 119, 6, 0.1);
   --accent-foreground: #FFFFFF;
 
   --micro-drama-accent: #4D7C0F;
-  --micro-drama-bg: #F4F6EE;
+  --micro-drama-bg: #F0F4E8;
 }
 
 .dark {
-  /* Dark Theme (Obsidian Charcoal Matte Base) */
-  --bg-base: #0B0B0C;
-  --surface-base: #141416;
-  --surface-elevated: #1E1E22;
-  --surface-hover: #26262B;
-  --border: #2A2A30;
+  /* Dark Theme (Deep Obsidian Charcoal Base) */
+  --bg-base: #09090B;
+  --surface-base: #121215;
+  --surface-elevated: #1A1A1E;
+  --surface-hover: #24242A;
+  --border: #27272A;
   --foreground: #F4F4F6;
-  --text-muted: #9E9EA8;
+  --text-muted: #A1A1AA;
   
   --accent-main: #FF9F1C;
   --accent-hover: #FFB703;
   --accent-subtle: rgba(255, 159, 28, 0.12);
-  --accent-foreground: #0B0B0C;
+  --accent-foreground: #09090B;
 
   --micro-drama-accent: #CCFF00;
-  --micro-drama-bg: #12160A;
+  --micro-drama-bg: #111509;
 }
 
 body {
@@ -52,7 +50,7 @@ body {
   color: var(--foreground);
   font-family: var(--font-body), sans-serif;
   overflow-x: hidden;
-  transition: background-color 0.25s ease, color 0.25s ease;
+  transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 /* Custom Typography Utility Classes */
@@ -69,7 +67,7 @@ body {
   scrollbar-width: none;
 }
 
-/* Strict Matte Surface System - NO GLOSSY / GLASSMORPHISM */
+/* Strict Matte Surface System */
 .matte-surface {
   background-color: var(--surface-base);
   border: 1px solid var(--border);
