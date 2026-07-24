@@ -53,6 +53,10 @@ interface AppState {
   cookieConsent: "pending" | "accepted" | "rejected";
   setCookieConsent: (consent: "accepted" | "rejected") => void;
 
+  // Search
+  searchQuery: string;
+  setSearchQuery: (query: string) => void;
+
   // Micro-drama Feed State
   activeShortId: string | null;
   isMuted: boolean;
@@ -122,6 +126,10 @@ export const useAppStore = create<AppState>()(
       // Cookie Consent
       cookieConsent: "pending",
       setCookieConsent: (consent) => set({ cookieConsent: consent }),
+
+      // Search
+      searchQuery: "",
+      setSearchQuery: (query) => set({ searchQuery: query }),
 
       // Micro-drama feed
       activeShortId: null,

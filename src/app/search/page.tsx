@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Search, X, History, SlidersHorizontal, Film, ArrowRight } from "lucide-react";
 import { FULL_CATALOG_ITEMS, ExtendedMediaItem } from "@/data/mockMedia";
 import { LongFormCard } from "@/components/cards/LongFormCard";
+import { useAppStore } from "@/store/useAppStore";
 import { cn } from "@/lib/utils";
 
 const INITIAL_RECENT_SEARCHES = [
@@ -15,7 +16,7 @@ const INITIAL_RECENT_SEARCHES = [
 ];
 
 export default function SearchPage() {
-  const [query, setQuery] = useState("");
+  const { searchQuery, setSearchQuery } = useAppStore();
   const [debouncedQuery, setDebouncedQuery] = useState("");
   const [recentSearches, setRecentSearches] = useState<string[]>(INITIAL_RECENT_SEARCHES);
   const [selectedGenreFilter, setSelectedGenreFilter] = useState("All");
@@ -23,13 +24,13 @@ export default function SearchPage() {
   // Debounce input (250ms delay)
   useEffect(() => {
     const handler = setTimeout(() => {
-      setDebouncedQuery(query);
+      setDebouncedQuery(searchQuery);
     }, 250);
     return () => clearTimeout(handler);
-  }, [query]);
+  }, [searchQuery]);
 
   const handleSearchSubmit = (text: string) => {
-    setQuery(text);
+    setSearchQuery(text);
     if (text.trim() && !recentSearches.includes(text.trim())) {
       setRecentSearches((prev) => [text.trim(), ...prev.slice(0, 4)]);
     }
@@ -72,14 +73,14 @@ export default function SearchPage() {
           <input
             type="text"
             placeholder="Search movies, series, genres (e.g. Cyberpunk, Thriller)..."
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
             autoFocus
             className="w-full bg-transparent border-none text-sm text-[var(--foreground)] focus:outline-none px-3 placeholder:text-[var(--text-muted)]"
           />
-          {query && (
+          {searchQuery && (
             <button
-              onClick={() => setQuery("")}
+              onClick={() => setSearchQuery("")}
               className="p-1 rounded text-[var(--text-muted)] hover:text-[var(--foreground)] mr-1"
               aria-label="Clear search"
             >
@@ -90,7 +91,7 @@ export default function SearchPage() {
       </div>
 
       {/* Recent Searches Chips */}
-      {recentSearches.length > 0 && !query && (
+      {recentSearches.length > 0 && !searchQuery && (
         <div className="space-y-2">
           <div className="flex items-center gap-1.5 text-xs font-display font-bold uppercase tracking-wider text-[var(--text-muted)]">
             <History className="w-3.5 h-3.5" />
@@ -184,7 +185,7 @@ export default function SearchPage() {
           </p>
           <button
             onClick={() => {
-              setQuery("");
+              setSearchQuery("");
               setSelectedGenreFilter("All");
             }}
             className="px-4 py-2 text-xs font-bold uppercase tracking-wider bg-[var(--accent-main)] text-[var(--accent-foreground)] rounded"

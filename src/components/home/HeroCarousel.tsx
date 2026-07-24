@@ -25,7 +25,7 @@ export function HeroCarousel({ items }: HeroCarouselProps) {
     if (isPaused || isPlayingTrailer) return;
     const timer = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % items.length);
-    }, 6000);
+    }, 3000);
     return () => clearInterval(timer);
   }, [isPaused, isPlayingTrailer, items.length]);
 

@@ -1,8 +1,8 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import { usePathname, useRouter } from "next/navigation";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 import { Search, Bookmark, Zap, Film, Home, Menu, X, User } from "lucide-react";
 import { LogoPlaceholder } from "@/components/common/LogoPlaceholder";
 import { ThemeToggle } from "@/components/common/ThemeToggle";
@@ -12,9 +12,17 @@ import { motion, AnimatePresence } from "framer-motion";
 
 export function GlobalHeader() {
   const pathname = usePathname();
+  const router = useRouter();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const { watchlist, isLoggedIn, user, logoutMockUser } = useAppStore();
+  const { watchlist, isLoggedIn, user, logoutMockUser, searchQuery, setSearchQuery } = useAppStore();
+
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(e.target.value);
+    if (pathname !== "/search" && e.target.value.trim() !== "") {
+      router.push("/search");
+    }
+  };
 
   if (pathname === "/welcome") return null;
 
@@ -81,19 +89,38 @@ export function GlobalHeader() {
         </div>
 
         {/* Right: Search + Theme Toggle + User Profile */}
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2 sm:gap-3">
           
-          {/* Search Box Icon (Only if not active) */}
-          {pathname !== "/search" && (
-            <Link
-              href="/search"
-              className="p-2 rounded-lg bg-[var(--surface-elevated)] border border-[var(--border)] text-[var(--text-primary)] hover:text-white hover:border-[var(--primary)] transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--primary)]"
-              aria-label="Open Search Catalog"
-              title="Search Catalog"
-            >
-              <Search className="w-4 h-4" />
-            </Link>
-          )}
+          {/* Inline Search Input Bar (Desktop) */}
+          <div className="relative hidden md:flex items-center bg-[var(--surface-elevated)] border border-[var(--border)] focus-within:border-[var(--primary)] focus-within:ring-1 focus-within:ring-[var(--primary)]/25 rounded-lg py-1.5 px-3 w-40 lg:w-56 transition-all">
+            <Search className="w-3.5 h-3.5 text-[var(--text-secondary)] shrink-0" />
+            <input
+              type="text"
+              placeholder="Search catalog..."
+              value={searchQuery}
+              onChange={handleSearchChange}
+              className="bg-transparent border-none text-[11px] text-white focus:outline-none px-2 w-full placeholder:text-[var(--text-secondary)]"
+            />
+            {searchQuery && (
+              <button
+                onClick={() => setSearchQuery("")}
+                className="p-0.5 rounded text-[var(--text-secondary)] hover:text-white"
+                aria-label="Clear search"
+              >
+                <X className="w-3 h-3" />
+              </button>
+            )}
+          </div>
+
+          {/* Search Icon (Mobile Viewport Trigger - links to /search page) */}
+          <Link
+            href="/search"
+            className="md:hidden p-2 rounded-lg bg-[var(--surface-elevated)] border border-[var(--border)] text-[var(--text-primary)] hover:text-white hover:border-[var(--primary)] transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--primary)]"
+            aria-label="Open Search Catalog"
+            title="Search Catalog"
+          >
+            <Search className="w-4 h-4" />
+          </Link>
 
           {/* Theme Switcher Toggle */}
           <ThemeToggle />
