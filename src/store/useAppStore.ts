@@ -10,6 +10,7 @@ export interface MediaItem {
   posterUrl: string;
   bannerUrl?: string;
   videoUrl?: string;
+  previewUrl?: string;
   duration?: string;
   episodesCount?: number;
   seasonCount?: number;
