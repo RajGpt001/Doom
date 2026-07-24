@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Bebas_Neue, Inter } from "next/font/google";
 import "./globals.css";
 
-import { ClerkClientProvider } from "@/providers/ClerkClientProvider";
 import { ThemeProvider } from "@/providers/ThemeProvider";
 import { GlobalHeader } from "@/components/layout/GlobalHeader";
 import { GlobalFooter } from "@/components/layout/GlobalFooter";
@@ -40,19 +39,17 @@ export default function RootLayout({
       style={{ "--font-display": "var(--font-heading)" } as React.CSSProperties}
     >
       <body className="min-h-screen flex flex-col antialiased bg-[var(--background)] text-[var(--text-primary)] selection:bg-[var(--primary)] selection:text-white">
-        <ClerkClientProvider>
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="dark"
-            enableSystem={false}
-            disableTransitionOnChange={false}
-          >
-            <GlobalHeader />
-            <main className="flex-1 pt-20">{children}</main>
-            <GlobalFooter />
-            <CookieBanner />
-          </ThemeProvider>
-        </ClerkClientProvider>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="dark"
+          enableSystem={false}
+          disableTransitionOnChange={false}
+        >
+          <GlobalHeader />
+          <main className="flex-1 pt-20">{children}</main>
+          <GlobalFooter />
+          <CookieBanner />
+        </ThemeProvider>
       </body>
     </html>
   );

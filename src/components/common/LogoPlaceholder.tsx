@@ -2,7 +2,6 @@
 
 import React from "react";
 import Link from "next/link";
-import { useUser } from "@clerk/nextjs";
 import { useAppStore } from "@/store/useAppStore";
 
 interface LogoPlaceholderProps {
@@ -14,9 +13,7 @@ export function LogoPlaceholder({
   className = "",
   size = "md",
 }: LogoPlaceholderProps) {
-  const { isSignedIn } = useUser();
-  const { isLoggedIn: isAppLoggedIn } = useAppStore();
-  const isLoggedIn = isSignedIn || isAppLoggedIn;
+  const { isLoggedIn } = useAppStore();
 
   const sizeClasses = {
     sm: "text-lg tracking-wider",

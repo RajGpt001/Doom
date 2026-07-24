@@ -7,7 +7,6 @@ import { Search, Bookmark, Zap, Film, Home, Menu, X, User } from "lucide-react";
 import { LogoPlaceholder } from "@/components/common/LogoPlaceholder";
 import { ThemeToggle } from "@/components/common/ThemeToggle";
 import { useAppStore } from "@/store/useAppStore";
-import { UserButton, SignedIn, SignedOut, useUser } from "@clerk/nextjs";
 import { cn } from "@/lib/utils";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -15,10 +14,7 @@ export function GlobalHeader() {
   const pathname = usePathname();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const { watchlist, isLoggedIn: isAppLoggedIn, logoutMockUser } = useAppStore();
-  const { isSignedIn } = useUser();
-
-  const isLoggedIn = isSignedIn || isAppLoggedIn;
+  const { watchlist, isLoggedIn, user, logoutMockUser } = useAppStore();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -101,24 +97,22 @@ export function GlobalHeader() {
           {/* User Profile vs Sign In / Sign Up Button (Guest Mode) */}
           <div className="flex items-center border-l border-[var(--border)] pl-2.5">
             {isLoggedIn ? (
-              <div className="flex items-center gap-2">
-                <SignedIn>
-                  <UserButton
-                    appearance={{
-                      elements: {
-                        avatarBox: "w-8 h-8 rounded-sm border border-[var(--primary)]",
-                      },
-                    }}
+              <div className="flex items-center gap-3">
+                {/* User Profile Avatar */}
+                {user && (
+                  <img
+                    src={user.avatarUrl || "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=200&q=80"}
+                    alt={user.name}
+                    className="w-8 h-8 rounded-full border-2 border-[var(--primary)] object-cover"
+                    title={user.name}
                   />
-                </SignedIn>
-                {!isSignedIn && isAppLoggedIn && (
-                  <button
-                    onClick={logoutMockUser}
-                    className="px-2.5 py-1 rounded bg-[var(--surface-elevated)] border border-[var(--border)] text-xs font-bold uppercase tracking-wider text-[var(--text-secondary)] hover:text-white hover:border-[var(--primary)] transition-colors cursor-pointer font-heading"
-                  >
-                    Sign Out
-                  </button>
                 )}
+                <button
+                  onClick={logoutMockUser}
+                  className="px-2.5 py-1 rounded bg-[var(--surface-elevated)] border border-[var(--border)] text-xs font-bold uppercase tracking-wider text-[var(--text-secondary)] hover:text-white hover:border-[var(--primary)] transition-colors cursor-pointer font-heading"
+                >
+                  Sign Out
+                </button>
               </div>
             ) : (
               /* Guest Mode: Show Sign In / Sign Up Button */
