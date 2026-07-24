@@ -16,6 +16,8 @@ export function GlobalHeader() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { watchlist, isLoggedIn, user, logoutMockUser } = useAppStore();
 
+  if (pathname === "/welcome") return null;
+
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);

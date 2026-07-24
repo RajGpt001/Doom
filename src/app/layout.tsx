@@ -6,6 +6,7 @@ import { ThemeProvider } from "@/providers/ThemeProvider";
 import { GlobalHeader } from "@/components/layout/GlobalHeader";
 import { GlobalFooter } from "@/components/layout/GlobalFooter";
 import { CookieBanner } from "@/components/common/CookieBanner";
+import { MainLayoutWrapper } from "@/components/layout/MainLayoutWrapper";
 
 const headingFont = Outfit({
   subsets: ["latin"],
@@ -44,7 +45,7 @@ export default function RootLayout({
           disableTransitionOnChange={false}
         >
           <GlobalHeader />
-          <main className="flex-1 pt-20">{children}</main>
+          <MainLayoutWrapper>{children}</MainLayoutWrapper>
           <GlobalFooter />
           <CookieBanner />
         </ThemeProvider>

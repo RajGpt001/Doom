@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import { usePathname } from "next/navigation";
 import Link from "next/link";
 import {
   Mail,
@@ -19,11 +20,14 @@ import {
 } from "lucide-react";
 
 export function GlobalFooter() {
+  const pathname = usePathname();
   const scrollToTop = () => {
     if (typeof window !== "undefined") {
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
   };
+
+  if (pathname === "/welcome") return null;
 
   return (
     <footer className="w-full bg-[#0A0A0A] border-t border-[var(--border)] text-[var(--text-secondary)] pt-14 pb-10 mt-16 select-none">
