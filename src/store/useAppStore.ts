@@ -42,8 +42,10 @@ interface AppState {
   // Mock User Session
   user: UserSession | null;
   isLoggedIn: boolean;
+  isGuest: boolean;
   loginMockUser: () => void;
   logoutMockUser: () => void;
+  continueAsGuest: () => void;
 
   // Cookie Consent
   cookieConsent: "pending" | "accepted" | "rejected";
@@ -84,9 +86,11 @@ export const useAppStore = create<AppState>()(
       // User Session - Default Logged Out
       user: null,
       isLoggedIn: false,
+      isGuest: false,
       loginMockUser: () =>
         set({
           isLoggedIn: true,
+          isGuest: false,
           user: {
             id: "usr_doom_01",
             name: "Alex Vance",
@@ -97,7 +101,8 @@ export const useAppStore = create<AppState>()(
             activeProfile: "Alex",
           },
         }),
-      logoutMockUser: () => set({ isLoggedIn: false, user: null }),
+      logoutMockUser: () => set({ isLoggedIn: false, isGuest: false, user: null }),
+      continueAsGuest: () => set({ isLoggedIn: false, isGuest: true, user: null }),
 
       // Cookie Consent
       cookieConsent: "pending",
@@ -117,6 +122,7 @@ export const useAppStore = create<AppState>()(
         cookieConsent: state.cookieConsent,
         isMuted: state.isMuted,
         isLoggedIn: state.isLoggedIn,
+        isGuest: state.isGuest,
         user: state.user,
       }),
     }

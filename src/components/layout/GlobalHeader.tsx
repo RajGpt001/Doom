@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Search, Bookmark, Zap, Film, Home, Menu, X } from "lucide-react";
+import { Search, Bookmark, Zap, Film, Home, Menu, X, User } from "lucide-react";
 import { LogoPlaceholder } from "@/components/common/LogoPlaceholder";
 import { ThemeToggle } from "@/components/common/ThemeToggle";
 import { useAppStore } from "@/store/useAppStore";
@@ -15,7 +15,7 @@ export function GlobalHeader() {
   const pathname = usePathname();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const { watchlist, isLoggedIn: isAppLoggedIn } = useAppStore();
+  const { watchlist, isLoggedIn: isAppLoggedIn, logoutMockUser } = useAppStore();
   const { isSignedIn } = useUser();
 
   const isLoggedIn = isSignedIn || isAppLoggedIn;
@@ -98,25 +98,36 @@ export function GlobalHeader() {
           {/* Theme Switcher Toggle */}
           <ThemeToggle />
 
-          {/* User Profile / Clerk Auth Button */}
+          {/* User Profile vs Sign In / Sign Up Button (Guest Mode) */}
           <div className="flex items-center border-l border-[var(--border)] pl-2.5">
-            <SignedIn>
-              <UserButton
-                appearance={{
-                  elements: {
-                    avatarBox: "w-8 h-8 rounded-sm border border-[var(--border)]",
-                  },
-                }}
-              />
-            </SignedIn>
-
-            <SignedOut>
-              <SignInButton mode="modal">
-                <button className="flex items-center gap-1.5 px-3 py-1.5 rounded-sm bg-[var(--accent-main)] text-[var(--accent-foreground)] font-display text-xs uppercase tracking-wider font-bold hover:brightness-110 transition-all cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent-main)]">
-                  Sign In
+            {isLoggedIn ? (
+              <div className="flex items-center gap-2">
+                <SignedIn>
+                  <UserButton
+                    appearance={{
+                      elements: {
+                        avatarBox: "w-8 h-8 rounded-sm border border-[var(--border)]",
+                      },
+                    }}
+                  />
+                </SignedIn>
+                {!isSignedIn && isAppLoggedIn && (
+                  <button
+                    onClick={logoutMockUser}
+                    className="px-2.5 py-1 rounded bg-[var(--surface-elevated)] border border-[var(--border)] text-[10px] font-bold uppercase text-[var(--text-muted)] hover:text-[var(--foreground)] transition-colors"
+                  >
+                    Sign Out
+                  </button>
+                )}
+              </div>
+            ) : (
+              /* Guest Mode: Show Sign In / Sign Up Button */
+              <Link href="/welcome">
+                <button className="flex items-center gap-1.5 px-3 py-1.5 rounded-sm bg-[var(--accent-main)] text-[var(--accent-foreground)] font-display text-xs uppercase tracking-wider font-bold hover:brightness-110 transition-all cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent-main)] shadow-sm">
+                  <User className="w-3.5 h-3.5" /> Sign In / Sign Up
                 </button>
-              </SignInButton>
-            </SignedOut>
+              </Link>
+            )}
           </div>
 
           {/* Mobile Hamburger Toggle Button */}
