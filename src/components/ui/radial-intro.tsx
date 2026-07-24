@@ -164,35 +164,21 @@ export const Component = ({
 // Aliased export for compatibility
 export const RadialIntroComponent = Component;
 
-// Full-screen Intro Overlay Wrapper with Immediate "ENTER DOOM OTT" Button
-export function RadialIntroOverlay() {
-  const [isVisible, setIsVisible] = React.useState<boolean | null>(null);
-
-  React.useEffect(() => {
-    if (typeof window !== "undefined") {
-      const hasPlayed = sessionStorage.getItem("doom_intro_played");
-      if (hasPlayed) {
-        setIsVisible(false);
-      } else {
-        setIsVisible(true);
-      }
-    }
-  }, []);
+// Full-screen Intro Overlay Wrapper (Loads immediately on opening window)
+export function RadialIntroOverlay({ forceShow = false }: { forceShow?: boolean }) {
+  const [isVisible, setIsVisible] = React.useState<boolean>(true);
 
   const handleEnter = () => {
-    if (typeof window !== "undefined") {
-      sessionStorage.setItem("doom_intro_played", "true");
-    }
     setIsVisible(false);
   };
 
-  if (isVisible === null || !isVisible) return null;
+  if (!isVisible) return null;
 
   return (
     <AnimatePresence>
       <motion.div
         initial={{ opacity: 1 }}
-        exit={{ opacity: 0, scale: 1.05, transition: { duration: 0.6, ease: "easeInOut" } }}
+        exit={{ opacity: 0, scale: 1.05, transition: { duration: 0.5, ease: "easeInOut" } }}
         className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-[#0A0A0A] text-white select-none overflow-hidden"
       >
         {/* Ambient Glow Mask */}
@@ -215,7 +201,7 @@ export function RadialIntroOverlay() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.5, duration: 0.6 }}
+          transition={{ delay: 0.4, duration: 0.5 }}
           className="relative z-20 flex flex-col items-center gap-4 mt-6"
         >
           <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-[0.3em] text-[var(--text-secondary)] font-heading">

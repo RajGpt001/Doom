@@ -13,6 +13,7 @@ import {
 } from "lucide-react";
 import { AuthTabs } from "@/components/entry/AuthTabs";
 import { FULL_CATALOG_ITEMS, MOCK_SHORT_FORM_SERIES } from "@/data/mockMedia";
+import { RadialIntroOverlay } from "@/components/ui/radial-intro";
 import { cn } from "@/lib/utils";
 
 const FAQS = [
@@ -41,7 +42,6 @@ export default function LandingPage() {
 
   const handleStart = (e: React.FormEvent) => {
     e.preventDefault();
-    // Scroll smoothly to the login/signup section
     const authSection = document.getElementById("auth-section");
     if (authSection) {
       authSection.scrollIntoView({ behavior: "smooth" });
@@ -55,27 +55,30 @@ export default function LandingPage() {
   };
 
   return (
-    <div className="space-y-16 pb-16 select-none">
+    <div className="space-y-16 pb-16 select-none relative">
       
+      {/* 🌟 3D RADIAL ORBITAL INTRO (Pops up immediately on window open with ENTER button) */}
+      <RadialIntroOverlay />
+
       {/* 1. HERO LANDING BANNER SECTION */}
-      <section className="relative min-h-[75vh] flex flex-col items-center justify-center text-center px-4 pt-12 pb-16 overflow-hidden rounded-b-2xl border-b border-[var(--border)] bg-[var(--surface-elevated)]">
+      <section className="relative min-h-[75vh] flex flex-col items-center justify-center text-center px-4 pt-12 pb-16 overflow-hidden rounded-b-2xl border-b border-[var(--border)] bg-[var(--surface)]">
         
-        {/* Subtle Ambient Glow */}
-        <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full bg-[var(--accent-main)]/10 filter blur-[120px] pointer-events-none" />
+        {/* Ambient Red Glow */}
+        <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full bg-[var(--primary)]/10 filter blur-[120px] pointer-events-none" />
 
         <div className="max-w-4xl mx-auto space-y-6 relative z-10">
           
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[var(--accent-subtle)] border border-[var(--accent-main)]/30 text-[var(--accent-main)] font-display text-xs font-black uppercase tracking-widest">
-            <Zap className="w-4 h-4 fill-current animate-pulse text-[var(--micro-drama-accent)]" />
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[var(--primary-muted)]/30 border border-[var(--primary)]/30 text-[var(--primary)] font-heading text-xs font-bold uppercase tracking-widest">
+            <Zap className="w-4 h-4 fill-current animate-pulse text-[var(--primary)]" />
             <span>THE NEXT EVOLUTION OF STREAMING</span>
           </div>
 
-          <h1 className="font-display font-black uppercase text-3xl sm:text-5xl md:text-6xl text-[var(--foreground)] tracking-tight leading-[1.1]">
+          <h1 className="font-heading uppercase text-4xl sm:text-6xl md:text-7xl text-white tracking-tight leading-[1.05]">
             Unlimited 4K Cinema & <br />
-            <span className="text-[var(--accent-main)]">1-Minute Micro-Dramas</span>
+            <span className="text-[var(--primary)]">1-Minute Micro-Dramas</span>
           </h1>
 
-          <p className="text-sm sm:text-base text-[var(--text-muted)] max-w-2xl mx-auto leading-relaxed">
+          <p className="text-sm sm:text-base text-[var(--text-secondary)] max-w-2xl mx-auto leading-relaxed">
             Stream blockbuster feature films, original series, and vertical web-dramas on your phone, tablet, and smart TV.
           </p>
 
@@ -87,41 +90,40 @@ export default function LandingPage() {
               value={emailInput}
               onChange={(e) => setEmailInput(e.target.value)}
               required
-              className="flex-1 px-4 py-3.5 rounded bg-[var(--surface-base)] border border-[var(--border)] text-xs text-[var(--foreground)] focus:border-[var(--accent-main)] focus:outline-none placeholder:text-[var(--text-muted)]"
+              className="flex-1 px-4 py-3.5 rounded bg-[#0A0A0A] border border-[var(--border)] text-xs text-white focus:border-[var(--primary)] focus:outline-none placeholder:text-[var(--text-secondary)]"
             />
             <button
               type="submit"
-              className="px-6 py-3.5 rounded bg-[var(--accent-main)] text-[var(--accent-foreground)] font-display font-extrabold text-xs uppercase tracking-wider hover:brightness-110 transition-all flex items-center justify-center gap-2 shadow-xl cursor-pointer shrink-0"
+              className="px-6 py-3.5 rounded bg-[var(--primary)] hover:bg-[var(--primary-hover)] text-white font-heading text-sm uppercase tracking-wider transition-all flex items-center justify-center gap-2 shadow-xl cursor-pointer shrink-0"
             >
               <span>Get Started</span>
               <ChevronRight className="w-4 h-4" />
             </button>
           </form>
 
-          <div className="flex items-center justify-center gap-6 text-xs text-[var(--text-muted)] font-medium pt-2">
-            <span className="flex items-center gap-1"><CheckCircle2 className="w-4 h-4 text-emerald-500" /> Cancel Anytime</span>
-            <span className="flex items-center gap-1"><CheckCircle2 className="w-4 h-4 text-emerald-500" /> 4K Ultra HD</span>
-            <span className="flex items-center gap-1"><CheckCircle2 className="w-4 h-4 text-emerald-500" /> Multi-Profiles</span>
+          <div className="flex items-center justify-center gap-6 text-xs text-[var(--text-secondary)] font-medium pt-2">
+            <span className="flex items-center gap-1"><CheckCircle2 className="w-4 h-4 text-[var(--primary)]" /> Cancel Anytime</span>
+            <span className="flex items-center gap-1"><CheckCircle2 className="w-4 h-4 text-[var(--primary)]" /> 4K Ultra HD</span>
+            <span className="flex items-center gap-1"><CheckCircle2 className="w-4 h-4 text-[var(--primary)]" /> Multi-Profiles</span>
           </div>
 
         </div>
       </section>
 
-      {/* 2. INLINE CLERK AUTHENTICATION SECTION (Sign In / Signup with Google) */}
+      {/* 2. INLINE CLERK AUTHENTICATION SECTION */}
       <section id="auth-section" className="max-w-4xl mx-auto px-4 space-y-6 scroll-mt-24">
         <div className="text-center space-y-2">
-          <span className="px-2.5 py-1 text-[10px] font-black uppercase bg-[var(--surface-elevated)] border border-[var(--border)] text-[var(--accent-main)] rounded">
+          <span className="px-2.5 py-1 text-xs font-bold uppercase bg-[var(--surface-elevated)] border border-[var(--border)] text-[var(--primary)] rounded font-heading">
             CLERK SECURITY AUTHENTICATION
           </span>
-          <h2 className="font-display font-black uppercase text-2xl sm:text-3xl text-[var(--foreground)]">
+          <h2 className="font-heading uppercase text-3xl sm:text-4xl text-white">
             Sign In or Create Your Account
           </h2>
-          <p className="text-xs text-[var(--text-muted)]">
+          <p className="text-xs text-[var(--text-secondary)]">
             Use Google Social Sign-In or your Email credentials to access the full catalog.
           </p>
         </div>
 
-        {/* Embedded Clerk Auth Component -> Navigates to /home on success */}
         <AuthTabs onSuccess={handleAuthSuccess} />
       </section>
 
@@ -129,20 +131,20 @@ export default function LandingPage() {
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
         
         {/* Showcase 1: 4K Cinema */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center p-8 rounded-xl bg-[var(--surface-elevated)] border border-[var(--border)]">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center p-8 rounded-xl bg-[var(--surface)] border border-[var(--border)]">
           <div className="space-y-4">
-            <span className="px-2.5 py-1 text-[10px] font-black uppercase bg-[var(--accent-subtle)] text-[var(--accent-main)] rounded border border-[var(--accent-main)]/30">
+            <span className="px-2.5 py-1 text-xs font-bold uppercase bg-[var(--primary-muted)]/30 text-[var(--primary)] rounded border border-[var(--primary)]/30 font-heading">
               CINEMATIC VOD
             </span>
-            <h3 className="font-display font-black uppercase text-2xl sm:text-3xl text-[var(--foreground)] leading-snug">
+            <h3 className="font-heading uppercase text-3xl sm:text-4xl text-white leading-snug">
               Enjoy Blockbuster 4K Movies & Original Series
             </h3>
-            <p className="text-xs sm:text-sm text-[var(--text-muted)] leading-relaxed">
+            <p className="text-xs sm:text-sm text-[var(--text-secondary)] leading-relaxed">
               Immerse yourself in rich, high-contrast films with Dolby Digital audio. Stream on your Smart TV, laptop, or tablet.
             </p>
             <Link
               href="/home"
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded bg-[var(--accent-main)] text-[var(--accent-foreground)] font-display font-extrabold text-xs uppercase tracking-wider hover:brightness-110"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded bg-[var(--primary)] hover:bg-[var(--primary-hover)] text-white font-heading text-sm uppercase tracking-wider"
             >
               <span>Explore Full Catalog</span>
               <ArrowRight className="w-4 h-4" />
@@ -154,7 +156,7 @@ export default function LandingPage() {
               <div key={item.id} className="rounded-lg overflow-hidden border border-[var(--border)] aspect-[2/3] group relative">
                 <img src={item.posterUrl} alt={item.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent p-2 flex items-end">
-                  <span className="font-display font-bold text-[10px] text-white truncate">{item.title}</span>
+                  <span className="font-heading font-bold text-xs text-white truncate uppercase">{item.title}</span>
                 </div>
               </div>
             ))}
@@ -162,40 +164,40 @@ export default function LandingPage() {
         </div>
 
         {/* Showcase 2: Vertical 1-Min Micro-Dramas */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center p-8 rounded-xl bg-[var(--surface-elevated)] border-2 border-[var(--micro-drama-accent)]/60">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center p-8 rounded-xl bg-[var(--surface)] border-2 border-[var(--primary)]/60">
           
           <div className="order-2 lg:order-1 flex justify-center">
-            <div className="w-56 aspect-[9/16] rounded-xl overflow-hidden border-2 border-[var(--micro-drama-accent)] shadow-2xl relative bg-black">
+            <div className="w-56 aspect-[9/16] rounded-xl overflow-hidden border-2 border-[var(--primary)] shadow-2xl relative bg-black">
               <img
                 src={MOCK_SHORT_FORM_SERIES[0].posterUrl}
                 alt="Shorts Preview"
                 className="w-full h-full object-cover filter contrast-105"
               />
-              <div className="absolute top-2 left-2 right-2 flex items-center justify-between text-[8px] font-black uppercase text-[var(--micro-drama-accent)] bg-black/70 px-2 py-1 rounded border border-[var(--micro-drama-accent)]/40">
+              <div className="absolute top-2 left-2 right-2 flex items-center justify-between text-[9px] font-bold uppercase text-[var(--primary)] bg-black/80 px-2 py-1 rounded border border-[var(--primary)]/40 font-heading">
                 <Zap className="w-2.5 h-2.5 fill-current animate-pulse" />
                 <span>CHAPTER 1 OF 8</span>
               </div>
               <div className="absolute inset-x-0 bottom-0 p-3 bg-gradient-to-t from-black via-black/80 to-transparent text-white space-y-1">
-                <span className="text-[9px] font-bold text-[var(--micro-drama-accent)] uppercase">100 SECONDS OF BETRAYAL</span>
-                <h4 className="font-display font-black text-xs uppercase">The Secret Oath</h4>
+                <span className="text-[10px] font-bold text-[var(--primary)] uppercase font-heading">100 SECONDS OF BETRAYAL</span>
+                <h4 className="font-heading uppercase text-sm">The Secret Oath</h4>
               </div>
             </div>
           </div>
 
           <div className="order-1 lg:order-2 space-y-4">
-            <span className="px-2.5 py-1 text-[10px] font-black uppercase bg-[var(--micro-drama-bg)] text-[var(--micro-drama-accent)] rounded border border-[var(--micro-drama-accent)]/40 flex items-center gap-1 w-fit">
-              <Zap className="w-3 h-3 fill-current" />
+            <span className="px-2.5 py-1 text-xs font-bold uppercase bg-[var(--primary-muted)]/40 text-[var(--primary)] rounded border border-[var(--primary)]/40 flex items-center gap-1 w-fit font-heading">
+              <Zap className="w-3.5 h-3.5 fill-current" />
               <span>SIGNATURE 60-SECOND FEED</span>
             </span>
-            <h3 className="font-display font-black uppercase text-2xl sm:text-3xl text-[var(--foreground)] leading-snug">
+            <h3 className="font-heading uppercase text-3xl sm:text-4xl text-white leading-snug">
               Vertical Micro-Dramas & 1-Minute Episodes
             </h3>
-            <p className="text-xs sm:text-sm text-[var(--text-muted)] leading-relaxed">
+            <p className="text-xs sm:text-sm text-[var(--text-secondary)] leading-relaxed">
               Designed for high-energy mobile viewing. Watch chaptered mini-series with top progress rails and 3D card flips.
             </p>
             <Link
               href="/shorts"
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded bg-[var(--micro-drama-accent)] text-[var(--micro-drama-bg)] font-display font-extrabold text-xs uppercase tracking-wider hover:brightness-110 shadow-lg"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded bg-[var(--primary)] hover:bg-[var(--primary-hover)] text-white font-heading text-sm uppercase tracking-wider shadow-lg"
             >
               <span>Launch Micro-Dramas Feed ⚡</span>
               <ArrowRight className="w-4 h-4" />
@@ -209,13 +211,13 @@ export default function LandingPage() {
       {/* 4. TIERED PRICING IN INR (₹) */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
         <div className="text-center max-w-xl mx-auto space-y-2">
-          <span className="px-2.5 py-1 text-[10px] font-black uppercase bg-[var(--accent-subtle)] text-[var(--accent-main)] rounded border border-[var(--accent-main)]/30">
+          <span className="px-2.5 py-1 text-xs font-bold uppercase bg-[var(--primary-muted)]/30 text-[var(--primary)] rounded border border-[var(--primary)]/30 font-heading">
             TRANSPARENT PRICING
           </span>
-          <h2 className="font-display font-black uppercase text-2xl sm:text-4xl text-[var(--foreground)]">
+          <h2 className="font-heading uppercase text-3xl sm:text-4xl text-white">
             Choose Your Streaming Plan
           </h2>
-          <p className="text-xs sm:text-sm text-[var(--text-muted)]">
+          <p className="text-xs sm:text-sm text-[var(--text-secondary)]">
             No hidden fees. Upgrade, downgrade, or cancel anytime.
           </p>
         </div>
@@ -229,29 +231,29 @@ export default function LandingPage() {
             <div
               key={p.name}
               className={cn(
-                "p-6 rounded-lg bg-[var(--surface-elevated)] border-2 flex flex-col justify-between space-y-6",
-                p.popular ? "border-[var(--accent-main)] shadow-xl" : "border-[var(--border)]"
+                "p-6 rounded-lg bg-[var(--surface)] border-2 flex flex-col justify-between space-y-6",
+                p.popular ? "border-[var(--primary)] shadow-xl" : "border-[var(--border)]"
               )}
             >
               <div className="space-y-4">
                 {p.popular && (
-                  <span className="px-2.5 py-0.5 rounded bg-[var(--accent-main)] text-[var(--accent-foreground)] font-display font-black text-[10px] uppercase tracking-widest">
+                  <span className="px-2.5 py-0.5 rounded bg-[var(--primary)] text-white font-heading font-bold text-xs uppercase tracking-widest">
                     MOST POPULAR
                   </span>
                 )}
-                <h3 className="font-display font-extrabold text-sm uppercase text-[var(--foreground)]">{p.name}</h3>
-                <div className="font-display font-black text-3xl text-[var(--foreground)]">{p.price}<span className="text-xs font-normal text-[var(--text-muted)]">/mo</span></div>
+                <h3 className="font-heading uppercase text-base text-white">{p.name}</h3>
+                <div className="font-heading text-4xl text-white">{p.price}<span className="text-xs font-normal text-[var(--text-secondary)]">/mo</span></div>
 
-                <div className="text-xs text-[var(--text-muted)] space-y-1.5 border-t border-[var(--border)] pt-3">
-                  <div>Quality: <strong className="text-[var(--foreground)]">{p.quality}</strong></div>
-                  <div>Screens: <strong className="text-[var(--foreground)]">{p.screens}</strong></div>
-                  <div>Micro-Dramas: <strong className="text-[var(--accent-main)]">Unlimited ⚡</strong></div>
+                <div className="text-xs text-[var(--text-secondary)] space-y-1.5 border-t border-[var(--border)] pt-3">
+                  <div>Quality: <strong className="text-white">{p.quality}</strong></div>
+                  <div>Screens: <strong className="text-white">{p.screens}</strong></div>
+                  <div>Micro-Dramas: <strong className="text-[var(--primary)]">Unlimited ⚡</strong></div>
                 </div>
               </div>
 
               <Link
                 href={`/checkout?plan=${p.name.toLowerCase().replace(/\s+/g, "-")}`}
-                className="w-full text-center py-2.5 rounded bg-[var(--accent-main)] text-[var(--accent-foreground)] font-display font-extrabold text-xs uppercase tracking-wider hover:brightness-110"
+                className="w-full text-center py-3 rounded bg-[var(--primary)] hover:bg-[var(--primary-hover)] text-white font-heading text-sm uppercase tracking-wider"
               >
                 Choose {p.name}
               </Link>
@@ -263,10 +265,10 @@ export default function LandingPage() {
       {/* 5. FAQ ACCORDION SECTION */}
       <section className="max-w-3xl mx-auto px-4 space-y-6">
         <div className="text-center space-y-2">
-          <h2 className="font-display font-black uppercase text-2xl sm:text-3xl text-[var(--foreground)]">
+          <h2 className="font-heading uppercase text-3xl text-white">
             Frequently Asked Questions
           </h2>
-          <p className="text-xs text-[var(--text-muted)]">
+          <p className="text-xs text-[var(--text-secondary)]">
             Everything you need to know about Doom OTT subscriptions and device support.
           </p>
         </div>
@@ -275,16 +277,16 @@ export default function LandingPage() {
           {FAQS.map((faq, idx) => {
             const isOpen = openFaq === idx;
             return (
-              <div key={idx} className="rounded-lg bg-[var(--surface-elevated)] border border-[var(--border)] overflow-hidden">
+              <div key={idx} className="rounded-lg bg-[var(--surface)] border border-[var(--border)] overflow-hidden">
                 <button
                   onClick={() => setOpenFaq(isOpen ? null : idx)}
-                  className="w-full p-4 text-left font-display font-bold text-xs uppercase text-[var(--foreground)] flex items-center justify-between cursor-pointer"
+                  className="w-full p-4 text-left font-heading text-sm uppercase text-white flex items-center justify-between cursor-pointer"
                 >
                   <span>{faq.q}</span>
-                  {isOpen ? <Minus className="w-4 h-4 text-[var(--accent-main)]" /> : <Plus className="w-4 h-4 text-[var(--text-muted)]" />}
+                  {isOpen ? <Minus className="w-4 h-4 text-[var(--primary)]" /> : <Plus className="w-4 h-4 text-[var(--text-secondary)]" />}
                 </button>
                 {isOpen && (
-                  <div className="px-4 pb-4 text-xs text-[var(--text-muted)] leading-relaxed border-t border-[var(--border)]/60 pt-3">
+                  <div className="px-4 pb-4 text-xs text-[var(--text-secondary)] leading-relaxed border-t border-[var(--border)]/60 pt-3">
                     {faq.a}
                   </div>
                 )}
