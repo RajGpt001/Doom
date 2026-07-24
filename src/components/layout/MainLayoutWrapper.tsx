@@ -6,12 +6,12 @@ import { cn } from "@/lib/utils";
 
 export function MainLayoutWrapper({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
-  
-  // Flush pages that should start right at the top (top:0) without a top padding gap
-  const isFlushPage = pathname === "/" || pathname === "/home" || pathname === "/welcome";
+
+  // On welcome page (where header is hidden), flush to top. Otherwise, offset below header.
+  const isWelcome = pathname === "/welcome";
 
   return (
-    <main className={cn("flex-1", isFlushPage ? "pt-0" : "pt-20")}>
+    <main className={cn("flex-1", isWelcome ? "pt-0" : "pt-20")}>
       {children}
     </main>
   );

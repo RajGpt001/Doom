@@ -44,12 +44,7 @@ export function GlobalHeader() {
 
   return (
     <header
-      className={cn(
-        "fixed top-0 left-0 right-0 z-40 transition-all duration-300 border-b select-none",
-        isScrolled
-          ? "bg-[#0A0A0A]/90 backdrop-blur-md border-[var(--border)] shadow-lg py-2.5"
-          : "bg-[#0A0A0A] border-transparent py-4"
-      )}
+      className="fixed top-0 left-0 right-0 z-40 bg-[#0A0A0A] border-b border-[var(--border)] shadow-lg py-3 select-none"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-12">
         
