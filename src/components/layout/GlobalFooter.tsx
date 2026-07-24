@@ -156,9 +156,7 @@ export function GlobalFooter() {
 
         {/* 6. COPYRIGHT FOOTER ROW */}
         <div className="pt-4 text-center text-xs text-[var(--text-secondary)] font-medium flex items-center justify-center gap-1.5">
-          <span>© {new Date().getFullYear()} Made with</span>
-          <Heart className="w-3.5 h-3.5 text-[var(--primary)] fill-current inline-block animate-pulse" />
-          <span>by <strong className="text-white font-bold">DOOM OTT</strong></span>
+          <span>© {new Date().getFullYear()} DOOM OTT. All rights reserved.</span>
         </div>
 
       </div>

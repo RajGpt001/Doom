@@ -67,13 +67,13 @@ export function HeroCarousel({ items }: HeroCarouselProps) {
             <img
               src={activeItem.bannerUrl || activeItem.posterUrl}
               alt={activeItem.title}
-              className="w-full h-full object-cover object-top filter brightness-75 scale-105 transition-transform duration-1000"
+              className="w-full h-full object-cover object-top scale-105 transition-transform duration-1000"
             />
           )}
 
           {/* Vignette Gradients (Dark Red & Black Blend) */}
-          <div className="absolute inset-0 bg-gradient-to-t from-[var(--background)] via-[var(--background)]/60 to-transparent z-10 pointer-events-none" />
-          <div className="absolute inset-y-0 left-0 w-3/4 md:w-1/2 bg-gradient-to-r from-[var(--background)] to-transparent z-10 pointer-events-none" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[var(--background)] via-[var(--background)]/80 to-transparent z-10 pointer-events-none" />
+          <div className="absolute inset-y-0 left-0 w-full md:w-2/3 bg-gradient-to-r from-[var(--background)] via-[var(--background)]/60 to-transparent z-10 pointer-events-none" />
         </motion.div>
       </AnimatePresence>
 
@@ -98,7 +98,7 @@ export function HeroCarousel({ items }: HeroCarouselProps) {
               </span>
             </div>
 
-            <h1 className="font-heading uppercase text-4xl sm:text-6xl md:text-7xl tracking-wider text-[var(--text-primary)] leading-none">
+            <h1 className="font-heading uppercase text-4xl sm:text-6xl md:text-7xl tracking-wider text-white drop-shadow-xl leading-none">
               {activeItem.title}
             </h1>
 
@@ -114,7 +114,7 @@ export function HeroCarousel({ items }: HeroCarouselProps) {
               <span className="text-[var(--text-primary)]">{activeItem.genre.join(" / ")}</span>
             </div>
 
-            <p className="text-xs sm:text-sm text-[var(--text-secondary)] line-clamp-3 leading-relaxed max-w-xl">
+            <p className="text-xs sm:text-sm text-gray-200 line-clamp-3 leading-relaxed max-w-xl drop-shadow-md">
               {activeItem.description}
             </p>
 

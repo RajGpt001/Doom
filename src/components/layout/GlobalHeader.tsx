@@ -62,12 +62,12 @@ export function GlobalHeader() {
                   key={link.name}
                   href={link.href}
                   className={cn(
-                    "flex items-center gap-2 px-3.5 py-2 rounded-lg font-sans text-xs uppercase tracking-wider font-bold transition-all relative focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--primary)] border border-transparent",
+                    "flex items-center gap-2 px-4 py-2 rounded-md font-sans text-[11px] uppercase tracking-wider font-extrabold transition-colors relative focus:outline-none",
                     link.isSpecial
-                      ? "text-[var(--primary)] bg-[var(--primary-muted)]/15 border-[var(--primary)]/20 hover:bg-[var(--primary-muted)]/25 hover:border-[var(--primary)]/50"
+                      ? "text-[var(--primary)] bg-[var(--primary-muted)]/10 hover:bg-[var(--primary-muted)]/20"
                       : isActive
-                      ? "text-white bg-[var(--surface-elevated)] border-[var(--border)]"
-                      : "text-[var(--text-secondary)] hover:text-white hover:bg-[var(--surface-elevated)]/50"
+                      ? "text-white bg-[#1A1A1A]"
+                      : "text-gray-400 hover:text-white hover:bg-[#1A1A1A]"
                   )}
                 >
                   <Icon className={cn("w-3.5 h-3.5", link.isSpecial && "text-[var(--primary)]")} />
@@ -147,8 +147,8 @@ export function GlobalHeader() {
             ) : (
               /* Guest Mode: Show Sign In / Sign Up Button */
               <Link href="/welcome">
-                <button className="flex items-center gap-1 px-2.5 py-1.5 sm:px-4 sm:py-2 rounded-lg bg-[var(--primary)] text-white font-sans text-[10px] sm:text-xs uppercase tracking-wider font-extrabold hover:bg-[var(--primary-hover)] hover:scale-[1.02] active:scale-[0.98] transition-all cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--primary)] shadow-lg shadow-[var(--primary)]/20 border border-white/10">
-                  <User className="w-3.5 h-3.5" />
+                <button className="flex items-center gap-1.5 px-3 py-1.5 sm:px-5 sm:py-2 rounded-md bg-[var(--primary)] text-white font-sans text-[10px] sm:text-xs uppercase tracking-wider font-extrabold hover:bg-[var(--primary-hover)] transition-all cursor-pointer shadow-md">
+                  <User className="w-4 h-4" />
                   <span className="hidden xs:inline sm:inline">Sign In</span>
                 </button>
               </Link>
