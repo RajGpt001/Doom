@@ -99,33 +99,35 @@ export function GlobalHeader() {
           <ThemeToggle />
 
           {/* User Profile vs Sign In / Sign Up Button */}
-          <div className="flex items-center border-l border-[var(--border)] pl-3 gap-2.5">
+          <div className="flex items-center border-l border-[var(--border)] pl-2 sm:pl-3 gap-1.5 sm:gap-2.5">
             {isLoggedIn ? (
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-2 sm:gap-3">
                 {/* User Profile Avatar */}
                 {user && (
-                  <div className="relative group">
+                  <div className="relative group flex-shrink-0">
                     <img
                       src={user.avatarUrl || "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=200&q=80"}
                       alt={user.name}
-                      className="w-8 h-8 rounded-full border border-[var(--primary)] object-cover shadow-md shadow-[var(--primary)]/10"
+                      className="w-7 h-7 sm:w-8 sm:h-8 rounded-full border border-[var(--primary)] object-cover shadow-md shadow-[var(--primary)]/10"
                       title={user.name}
                     />
-                    <div className="absolute -bottom-1 -right-1 w-2.5 h-2.5 bg-emerald-500 rounded-full border-2 border-[#0A0A0A]" />
+                    <div className="absolute -bottom-0.5 -right-0.5 w-2 h-2 bg-emerald-500 rounded-full border border-[#0A0A0A]" />
                   </div>
                 )}
                 <button
                   onClick={logoutMockUser}
-                  className="px-3.5 py-2 rounded-lg bg-[var(--surface-elevated)] border border-[var(--border)] text-xs font-sans font-bold uppercase tracking-wider text-[var(--text-secondary)] hover:text-white hover:border-[var(--primary)] transition-all cursor-pointer"
+                  className="px-2 py-1.5 sm:px-3.5 sm:py-2 rounded-lg bg-[var(--surface-elevated)] border border-[var(--border)] text-[10px] sm:text-xs font-sans font-bold uppercase tracking-wider text-[var(--text-secondary)] hover:text-white hover:border-[var(--primary)] transition-all cursor-pointer"
                 >
-                  Sign Out
+                  <span className="hidden sm:inline">Sign Out</span>
+                  <span className="sm:hidden text-[9px]">Exit</span>
                 </button>
               </div>
             ) : (
               /* Guest Mode: Show Sign In / Sign Up Button */
               <Link href="/welcome">
-                <button className="flex items-center gap-1.5 px-4 py-2 rounded-lg bg-[var(--primary)] text-white font-sans text-xs uppercase tracking-wider font-extrabold hover:bg-[var(--primary-hover)] hover:scale-[1.02] active:scale-[0.98] transition-all cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--primary)] shadow-lg shadow-[var(--primary)]/20 border border-white/10">
-                  <User className="w-3.5 h-3.5" /> Sign In / Sign Up
+                <button className="flex items-center gap-1 px-2.5 py-1.5 sm:px-4 sm:py-2 rounded-lg bg-[var(--primary)] text-white font-sans text-[10px] sm:text-xs uppercase tracking-wider font-extrabold hover:bg-[var(--primary-hover)] hover:scale-[1.02] active:scale-[0.98] transition-all cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--primary)] shadow-lg shadow-[var(--primary)]/20 border border-white/10">
+                  <User className="w-3.5 h-3.5" />
+                  <span className="hidden xs:inline sm:inline">Sign In</span>
                 </button>
               </Link>
             )}
