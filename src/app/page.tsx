@@ -61,40 +61,40 @@ export default function LandingPage() {
       <RadialIntroOverlay />
 
       {/* 1. HERO LANDING BANNER SECTION */}
-      <section className="relative min-h-[75vh] flex flex-col items-center justify-center text-center px-4 pt-12 pb-16 overflow-hidden rounded-b-2xl border-b border-[var(--border)] bg-[var(--surface)]">
+      <section className="relative min-h-[80vh] flex flex-col items-center justify-center text-center px-4 pt-16 pb-20 overflow-hidden rounded-b-3xl border-b border-[var(--border)] bg-gradient-to-b from-[var(--surface)] to-[#0A0A0A]">
         
         {/* Ambient Red Glow */}
-        <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full bg-[var(--primary)]/10 filter blur-[120px] pointer-events-none" />
+        <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-[var(--primary)]/15 filter blur-[140px] pointer-events-none" />
 
-        <div className="max-w-4xl mx-auto space-y-6 relative z-10">
+        <div className="max-w-4xl mx-auto space-y-8 relative z-10">
           
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[var(--primary-muted)]/30 border border-[var(--primary)]/30 text-[var(--primary)] font-heading text-xs font-bold uppercase tracking-widest">
-            <Zap className="w-4 h-4 fill-current animate-pulse text-[var(--primary)]" />
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[var(--primary-muted)]/20 border border-[var(--primary)]/30 text-[var(--primary)] font-sans text-[11px] font-bold uppercase tracking-widest">
+            <Zap className="w-3.5 h-3.5 fill-current animate-pulse text-[var(--primary)]" />
             <span>THE NEXT EVOLUTION OF STREAMING</span>
           </div>
 
-          <h1 className="font-heading uppercase text-4xl sm:text-6xl md:text-7xl text-white tracking-tight leading-[1.05]">
+          <h1 className="font-heading uppercase text-4xl sm:text-6xl md:text-7xl text-white tracking-tight leading-[1.05] font-black">
             Unlimited 4K Cinema & <br />
-            <span className="text-[var(--primary)]">1-Minute Micro-Dramas</span>
+            <span className="text-[var(--primary)] drop-shadow-[0_0_35px_rgba(229,9,20,0.25)]">1-Minute Micro-Dramas</span>
           </h1>
 
           <p className="text-sm sm:text-base text-[var(--text-secondary)] max-w-2xl mx-auto leading-relaxed">
-            Stream blockbuster feature films, original series, and vertical web-dramas on your phone, tablet, and smart TV.
+            Stream blockbuster feature films, exclusive original series, and vertical web-dramas on your phone, tablet, and smart TV.
           </p>
 
           {/* Quick Email Registration / Start Watching Bar */}
-          <form onSubmit={handleStart} className="max-w-xl mx-auto flex flex-col sm:flex-row gap-3 pt-4">
+          <form onSubmit={handleStart} className="max-w-xl mx-auto flex flex-col sm:flex-row gap-3 pt-6 w-full">
             <input
               type="email"
               placeholder="Enter your email address..."
               value={emailInput}
               onChange={(e) => setEmailInput(e.target.value)}
               required
-              className="flex-1 px-4 py-3.5 rounded bg-[#0A0A0A] border border-[var(--border)] text-xs text-white focus:border-[var(--primary)] focus:outline-none placeholder:text-[var(--text-secondary)]"
+              className="flex-1 px-5 py-4 rounded-xl bg-black/60 border border-[var(--border)] text-xs text-white focus:border-[var(--primary)] focus:ring-2 focus:ring-[var(--primary)]/20 focus:outline-none placeholder:text-[var(--text-secondary)] transition-all shadow-inner"
             />
             <button
               type="submit"
-              className="px-6 py-3.5 rounded bg-[var(--primary)] hover:bg-[var(--primary-hover)] text-white font-heading text-sm uppercase tracking-wider transition-all flex items-center justify-center gap-2 shadow-xl cursor-pointer shrink-0"
+              className="px-7 py-4 rounded-xl bg-[var(--primary)] hover:bg-[var(--primary-hover)] hover:shadow-[0_0_25px_rgba(229,9,20,0.4)] text-white font-sans text-xs uppercase tracking-wider font-extrabold transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer shrink-0 hover:scale-[1.02] active:scale-[0.98] border border-white/10"
             >
               <span>Get Started</span>
               <ChevronRight className="w-4 h-4" />
@@ -102,21 +102,21 @@ export default function LandingPage() {
           </form>
 
           <div className="flex items-center justify-center gap-6 text-xs text-[var(--text-secondary)] font-medium pt-2">
-            <span className="flex items-center gap-1"><CheckCircle2 className="w-4 h-4 text-[var(--primary)]" /> Cancel Anytime</span>
-            <span className="flex items-center gap-1"><CheckCircle2 className="w-4 h-4 text-[var(--primary)]" /> 4K Ultra HD</span>
-            <span className="flex items-center gap-1"><CheckCircle2 className="w-4 h-4 text-[var(--primary)]" /> Multi-Profiles</span>
+            <span className="flex items-center gap-1.5"><CheckCircle2 className="w-4 h-4 text-[var(--primary)]" /> Cancel Anytime</span>
+            <span className="flex items-center gap-1.5"><CheckCircle2 className="w-4 h-4 text-[var(--primary)]" /> 4K Ultra HD</span>
+            <span className="flex items-center gap-1.5"><CheckCircle2 className="w-4 h-4 text-[var(--primary)]" /> Multi-Profiles</span>
           </div>
 
         </div>
       </section>
 
-      {/* 2. INLINE CLERK AUTHENTICATION SECTION */}
+      {/* 2. INLINE AUTHENTICATION SECTION */}
       <section id="auth-section" className="max-w-4xl mx-auto px-4 space-y-6 scroll-mt-24">
         <div className="text-center space-y-2">
-          <span className="px-2.5 py-1 text-xs font-bold uppercase bg-[var(--surface-elevated)] border border-[var(--border)] text-[var(--primary)] rounded font-heading">
-            CLERK SECURITY AUTHENTICATION
+          <span className="px-3 py-1 text-xs font-bold uppercase bg-[var(--surface-elevated)] border border-[var(--border)] text-[var(--primary)] rounded-full font-sans tracking-wider">
+            SECURE FIREBASE AUTHENTICATION
           </span>
-          <h2 className="font-heading uppercase text-3xl sm:text-4xl text-white">
+          <h2 className="font-heading uppercase text-3xl sm:text-4xl text-white font-extrabold">
             Sign In or Create Your Account
           </h2>
           <p className="text-xs text-[var(--text-secondary)]">
