@@ -45,6 +45,7 @@ interface AppState {
   isLoggedIn: boolean;
   isGuest: boolean;
   loginMockUser: () => void;
+  loginUser: (user: { id: string; name: string; email: string; avatarUrl: string }) => void;
   logoutMockUser: () => void;
   continueAsGuest: () => void;
 
@@ -100,6 +101,19 @@ export const useAppStore = create<AppState>()(
               "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80",
             isPremium: true,
             activeProfile: "Alex",
+          },
+        }),
+      loginUser: (firebaseUser) =>
+        set({
+          isLoggedIn: true,
+          isGuest: false,
+          user: {
+            id: firebaseUser.id,
+            name: firebaseUser.name,
+            email: firebaseUser.email,
+            avatarUrl: firebaseUser.avatarUrl,
+            isPremium: true,
+            activeProfile: firebaseUser.name.split(" ")[0] || "User",
           },
         }),
       logoutMockUser: () => set({ isLoggedIn: false, isGuest: false, user: null }),
