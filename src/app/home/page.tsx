@@ -1,11 +1,12 @@
 "use client";
 
-import React from "react";
-import { motion } from "framer-motion";
+import React, { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { HeroCarousel } from "@/components/home/HeroCarousel";
-import { HERO_CAROUSEL_ITEMS, FULL_CATALOG_ITEMS } from "@/data/mockMedia";
-import { MOCK_SHORT_FORM } from "@/data/mockMedia";
+import { HERO_CAROUSEL_ITEMS, FULL_CATALOG_ITEMS, MOCK_SHORT_FORM } from "@/data/mockMedia";
 import { SectionRow } from "@/components/sections/SectionRow";
+import { CinematicFooter } from "@/components/ui/motion-footer";
+import { ChevronDown, Play, Sparkles } from "lucide-react";
 
 // Cinematic Entrance Animation Variants
 const containerVariants = {
@@ -56,6 +57,23 @@ const rowVariants = {
 };
 
 export default function CatalogHomePage() {
+  const [hasScrolledDown, setHasScrolledDown] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 40 && !hasScrolledDown) {
+        setHasScrolledDown(true);
+      }
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [hasScrolledDown]);
+
+  const handleUnlockCatalog = () => {
+    setHasScrolledDown(true);
+    window.scrollTo({ top: 400, behavior: "smooth" });
+  };
+
   const sciFiMovies = FULL_CATALOG_ITEMS.filter((item) =>
     item.genre.includes("Sci-Fi") || item.genre.includes("Cyberpunk")
   );
@@ -69,9 +87,9 @@ export default function CatalogHomePage() {
   );
 
   return (
-    <div className="relative overflow-hidden select-none">
+    <div className="relative overflow-x-hidden select-none bg-[var(--surface-base)] text-[var(--foreground)] transition-colors duration-500 min-h-screen">
       
-      {/* 🎬 Cinematic Shutter Beam Overlay Animation */}
+      {/* 🎬 Cinematic Shutter Beam Overlay Animation on Entrance */}
       <motion.div
         initial={{ scaleY: 1 }}
         animate={{ scaleY: 0 }}
@@ -88,12 +106,46 @@ export default function CatalogHomePage() {
         </motion.div>
       </motion.div>
 
+      {/* 🌟 Intro Landing Banner (Shown before first scroll, then smooths out into main catalog) */}
+      <AnimatePresence>
+        {!hasScrolledDown && (
+          <motion.div
+            initial={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+            className="relative w-full py-12 px-6 overflow-hidden border-b border-[var(--border)] bg-gradient-to-b from-[var(--surface-elevated)] via-[var(--surface-base)] to-transparent text-center space-y-4"
+          >
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[var(--accent-subtle)] border border-[var(--accent-main)]/30 text-[var(--accent-main)] text-xs font-bold uppercase tracking-wider">
+              <Sparkles className="w-3.5 h-3.5" />
+              <span>Welcome to Premium OTT Streaming</span>
+            </div>
+
+            <h1 className="text-3xl sm:text-5xl font-black font-display tracking-tight text-[var(--foreground)] uppercase">
+              Unlimited Movies, Series & 1-Min Micro-Dramas
+            </h1>
+
+            <p className="text-xs sm:text-sm text-[var(--text-muted)] max-w-xl mx-auto">
+              Scroll down to reveal the full 4K HDR catalog and kinetic vertical web series.
+            </p>
+
+            <button
+              onClick={handleUnlockCatalog}
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[var(--accent-main)] text-[var(--accent-foreground)] font-display font-extrabold text-xs uppercase tracking-wider hover:brightness-110 transition-all shadow-lg cursor-pointer mt-2"
+            >
+              <Play className="w-4 h-4 fill-current" />
+              <span>Explore Catalog</span>
+              <ChevronDown className="w-4 h-4 animate-bounce ml-1" />
+            </button>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       {/* Main Catalog View Container */}
       <motion.div
         initial="hidden"
         animate="visible"
         variants={containerVariants}
-        className="space-y-8 pb-16"
+        className="space-y-12 pb-16 pt-4"
       >
         {/* 1. Hero Carousel (Spotlight Reveal) */}
         <motion.div variants={heroSpotlightVariants}>
@@ -166,6 +218,9 @@ export default function CatalogHomePage() {
           />
         </motion.div>
       </motion.div>
+
+      {/* 🎬 Integrated Motion Footer Component */}
+      <CinematicFooter />
 
     </div>
   );
