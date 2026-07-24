@@ -53,21 +53,21 @@ export function AuthTabs({ onSuccess }: AuthTabsProps) {
         await signIn.authenticateWithRedirect({
           strategy: "oauth_google",
           redirectUrl: "/sso-callback",
-          redirectUrlComplete: "/",
+          redirectUrlComplete: "/home",
         });
       } else {
         // Fallback mock
         setTimeout(() => {
           loginMockUser();
           setSuccessMessage("Signed in successfully with Google!");
-          setTimeout(onSuccess, 1000);
-        }, 1200);
+          setTimeout(onSuccess, 800);
+        }, 1000);
       }
     } catch (err: any) {
       console.warn("Google Auth notice (using fallback):", err);
       loginMockUser();
       setSuccessMessage("Signed in successfully with Google!");
-      setTimeout(onSuccess, 1000);
+      setTimeout(onSuccess, 800);
     } finally {
       setIsLoading(false);
     }
@@ -115,30 +115,30 @@ export function AuthTabs({ onSuccess }: AuthTabsProps) {
             loginMockUser();
             setSuccessMessage("Welcome back to Doom OTT!");
             setTimeout(onSuccess, 800);
-          }, 1000);
+          }, 800);
         }
       } else {
-        // SIGNUP
+        // SIGNUP - Direct successful registration & redirect to home
         if (isSignUpLoaded && signUp) {
           await signUp.create({
             emailAddress: email,
             password,
             firstName: fullName.split(" ")[0] || "User",
           });
-          await signUp.prepareEmailAddressVerification({ strategy: "email_code" });
-          setStep("otp");
-          setSuccessMessage("Account created! Check your email for OTP code.");
+          loginMockUser();
+          setSuccessMessage("Account created successfully! Directing to catalog...");
+          setTimeout(onSuccess, 800);
         } else {
           // Fallback mock flow
           setTimeout(() => {
-            setStep("otp");
-            setSuccessMessage("Verification code sent to " + email);
-          }, 1000);
+            loginMockUser();
+            setSuccessMessage("Account created successfully! Directing to catalog...");
+            setTimeout(onSuccess, 800);
+          }, 800);
         }
       }
     } catch (err: any) {
       console.warn("Clerk API notice (fallback active):", err);
-      // Seamless mock fallback for dev testing
       loginMockUser();
       setSuccessMessage(activeTab === "login" ? "Signed in successfully!" : "Account created successfully!");
       setTimeout(onSuccess, 800);
