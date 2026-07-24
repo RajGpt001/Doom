@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Bebas_Neue, Inter } from "next/font/google";
+import { Outfit, Inter } from "next/font/google";
 import "./globals.css";
 
 import { ThemeProvider } from "@/providers/ThemeProvider";
@@ -7,8 +7,7 @@ import { GlobalHeader } from "@/components/layout/GlobalHeader";
 import { GlobalFooter } from "@/components/layout/GlobalFooter";
 import { CookieBanner } from "@/components/common/CookieBanner";
 
-const headingFont = Bebas_Neue({
-  weight: "400",
+const headingFont = Outfit({
   subsets: ["latin"],
   variable: "--font-heading",
   display: "swap",
@@ -36,7 +35,6 @@ export default function RootLayout({
       lang="en"
       suppressHydrationWarning
       className={`${headingFont.variable} ${bodyFont.variable}`}
-      style={{ "--font-display": "var(--font-heading)" } as React.CSSProperties}
     >
       <body className="min-h-screen flex flex-col antialiased bg-[var(--background)] text-[var(--text-primary)] selection:bg-[var(--primary)] selection:text-white">
         <ThemeProvider

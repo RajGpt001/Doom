@@ -37,18 +37,18 @@ export function GlobalHeader() {
       className={cn(
         "fixed top-0 left-0 right-0 z-40 transition-all duration-300 border-b select-none",
         isScrolled
-          ? "bg-[#0A0A0A]/95 border-[var(--border)] shadow-lg py-3"
+          ? "bg-[#0A0A0A]/90 backdrop-blur-md border-[var(--border)] shadow-lg py-2.5"
           : "bg-[#0A0A0A] border-transparent py-4"
       )}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-4">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-12">
         
         {/* Left: Brand Logo & Desktop Nav */}
-        <div className="flex items-center gap-6">
+        <div className="flex items-center gap-8">
           <LogoPlaceholder size="md" />
 
           {/* Nav Links (Desktop) */}
-          <nav className="hidden lg:flex items-center gap-1">
+          <nav className="hidden lg:flex items-center gap-1.5">
             {navLinks.map((link) => {
               const isActive = pathname === link.href || (link.name === "Home" && (pathname === "/" || pathname === "/home"));
               const Icon = link.icon;
@@ -57,18 +57,18 @@ export function GlobalHeader() {
                   key={link.name}
                   href={link.href}
                   className={cn(
-                    "flex items-center gap-1.5 px-3 py-1.5 rounded-sm font-heading text-sm uppercase tracking-wider font-bold transition-colors relative focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--primary)]",
+                    "flex items-center gap-2 px-3.5 py-2 rounded-lg font-sans text-xs uppercase tracking-wider font-bold transition-all relative focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--primary)] border border-transparent",
                     link.isSpecial
-                      ? "text-[var(--primary)] bg-[var(--primary-muted)]/40 border border-[var(--primary)]/40 hover:border-[var(--primary)]"
+                      ? "text-[var(--primary)] bg-[var(--primary-muted)]/15 border-[var(--primary)]/20 hover:bg-[var(--primary-muted)]/25 hover:border-[var(--primary)]/50"
                       : isActive
-                      ? "text-[var(--primary)] bg-[var(--primary-muted)]/30 border border-[var(--primary)]/50"
-                      : "text-[var(--text-secondary)] hover:text-white hover:bg-[var(--surface-elevated)]"
+                      ? "text-white bg-[var(--surface-elevated)] border-[var(--border)]"
+                      : "text-[var(--text-secondary)] hover:text-white hover:bg-[var(--surface-elevated)]/50"
                   )}
                 >
-                  <Icon className="w-3.5 h-3.5" />
+                  <Icon className={cn("w-3.5 h-3.5", link.isSpecial && "text-[var(--primary)]")} />
                   <span>{link.name}</span>
                   {link.badgeCount !== undefined && link.badgeCount > 0 && (
-                    <span className="ml-1 px-1.5 py-0.2 text-[10px] bg-[var(--primary)] text-white font-black rounded-full font-sans">
+                    <span className="ml-1 px-1.5 py-0.5 text-[9px] bg-[var(--primary)] text-white font-extrabold rounded-full font-sans">
                       {link.badgeCount}
                     </span>
                   )}
@@ -79,37 +79,42 @@ export function GlobalHeader() {
         </div>
 
         {/* Right: Search + Theme Toggle + User Profile */}
-        <div className="flex items-center gap-2.5">
+        <div className="flex items-center gap-3">
           
-          {/* Search Box */}
-          <Link
-            href="/search"
-            className="p-2 rounded bg-[var(--surface-elevated)] border border-[var(--border)] text-[var(--text-primary)] hover:border-[var(--primary)] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--primary)]"
-            aria-label="Open Search Catalog"
-            title="Search Catalog"
-          >
-            <Search className="w-4 h-4" />
-          </Link>
+          {/* Search Box Icon (Only if not active) */}
+          {pathname !== "/search" && (
+            <Link
+              href="/search"
+              className="p-2 rounded-lg bg-[var(--surface-elevated)] border border-[var(--border)] text-[var(--text-primary)] hover:text-white hover:border-[var(--primary)] transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--primary)]"
+              aria-label="Open Search Catalog"
+              title="Search Catalog"
+            >
+              <Search className="w-4 h-4" />
+            </Link>
+          )}
 
           {/* Theme Switcher Toggle */}
           <ThemeToggle />
 
-          {/* User Profile vs Sign In / Sign Up Button (Guest Mode) */}
-          <div className="flex items-center border-l border-[var(--border)] pl-2.5">
+          {/* User Profile vs Sign In / Sign Up Button */}
+          <div className="flex items-center border-l border-[var(--border)] pl-3 gap-2.5">
             {isLoggedIn ? (
               <div className="flex items-center gap-3">
                 {/* User Profile Avatar */}
                 {user && (
-                  <img
-                    src={user.avatarUrl || "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=200&q=80"}
-                    alt={user.name}
-                    className="w-8 h-8 rounded-full border-2 border-[var(--primary)] object-cover"
-                    title={user.name}
-                  />
+                  <div className="relative group">
+                    <img
+                      src={user.avatarUrl || "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=200&q=80"}
+                      alt={user.name}
+                      className="w-8 h-8 rounded-full border border-[var(--primary)] object-cover shadow-md shadow-[var(--primary)]/10"
+                      title={user.name}
+                    />
+                    <div className="absolute -bottom-1 -right-1 w-2.5 h-2.5 bg-emerald-500 rounded-full border-2 border-[#0A0A0A]" />
+                  </div>
                 )}
                 <button
                   onClick={logoutMockUser}
-                  className="px-2.5 py-1 rounded bg-[var(--surface-elevated)] border border-[var(--border)] text-xs font-bold uppercase tracking-wider text-[var(--text-secondary)] hover:text-white hover:border-[var(--primary)] transition-colors cursor-pointer font-heading"
+                  className="px-3.5 py-2 rounded-lg bg-[var(--surface-elevated)] border border-[var(--border)] text-xs font-sans font-bold uppercase tracking-wider text-[var(--text-secondary)] hover:text-white hover:border-[var(--primary)] transition-all cursor-pointer"
                 >
                   Sign Out
                 </button>
@@ -117,7 +122,7 @@ export function GlobalHeader() {
             ) : (
               /* Guest Mode: Show Sign In / Sign Up Button */
               <Link href="/welcome">
-                <button className="flex items-center gap-1.5 px-3 py-1.5 rounded-sm bg-[var(--primary)] text-white font-heading text-sm uppercase tracking-wider font-bold hover:bg-[var(--primary-hover)] transition-all cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--primary)] shadow-md shadow-[var(--primary)]/20">
+                <button className="flex items-center gap-1.5 px-4 py-2 rounded-lg bg-[var(--primary)] text-white font-sans text-xs uppercase tracking-wider font-extrabold hover:bg-[var(--primary-hover)] hover:scale-[1.02] active:scale-[0.98] transition-all cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--primary)] shadow-lg shadow-[var(--primary)]/20 border border-white/10">
                   <User className="w-3.5 h-3.5" /> Sign In / Sign Up
                 </button>
               </Link>
@@ -127,7 +132,7 @@ export function GlobalHeader() {
           {/* Mobile Hamburger Toggle Button */}
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="lg:hidden p-2 rounded bg-[var(--surface-elevated)] border border-[var(--border)] text-white hover:border-[var(--primary)] transition-colors focus:outline-none"
+            className="lg:hidden p-2 rounded-lg bg-[var(--surface-elevated)] border border-[var(--border)] text-white hover:border-[var(--primary)] transition-all focus:outline-none"
             aria-label="Toggle Navigation Menu"
           >
             {isMobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
@@ -154,12 +159,12 @@ export function GlobalHeader() {
                   href={link.href}
                   onClick={() => setIsMobileMenuOpen(false)}
                   className={cn(
-                    "flex items-center justify-between px-3 py-2.5 rounded font-heading text-sm uppercase tracking-wider font-bold transition-colors",
+                    "flex items-center justify-between px-3.5 py-3 rounded-lg font-sans text-xs uppercase tracking-wider font-bold transition-all border border-transparent",
                     link.isSpecial
-                      ? "text-[var(--primary)] bg-[var(--primary-muted)]/30 border border-[var(--primary)]/30"
+                      ? "text-[var(--primary)] bg-[var(--primary-muted)]/15 border-[var(--primary)]/20"
                       : isActive
-                      ? "text-[var(--primary)] bg-[var(--primary-muted)]/30 border border-[var(--primary)]/40"
-                      : "text-white hover:bg-[var(--surface-elevated)]"
+                      ? "text-white bg-[var(--surface-elevated)] border-[var(--border)]"
+                      : "text-white hover:bg-[var(--surface-elevated)]/50"
                   )}
                 >
                   <div className="flex items-center gap-2">
@@ -167,7 +172,7 @@ export function GlobalHeader() {
                     <span>{link.name}</span>
                   </div>
                   {link.badgeCount !== undefined && link.badgeCount > 0 && (
-                    <span className="px-2 py-0.5 text-[10px] bg-[var(--primary)] text-white font-black rounded-full font-sans">
+                    <span className="px-2 py-0.5 text-[9px] bg-[var(--primary)] text-white font-extrabold rounded-full font-sans">
                       {link.badgeCount}
                     </span>
                   )}
