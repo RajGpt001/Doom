@@ -38,7 +38,7 @@ const STYLES = `
 
 @keyframes footer-breathe {
   0% { transform: translate(-50%, -50%) scale(1); opacity: 0.6; }
-  100% { transform: translate(-50%, -50%) scale(1.1); opacity: 1; }
+  100% { transform: translate(-50%, -50%) scale(1.15); opacity: 0.95; }
 }
 
 @keyframes footer-scroll-marquee {
@@ -57,7 +57,7 @@ const STYLES = `
 }
 
 .animate-footer-scroll-marquee {
-  animation: footer-scroll-marquee 40s linear infinite;
+  animation: footer-scroll-marquee 35s linear infinite;
 }
 
 .animate-footer-heartbeat {
@@ -68,18 +68,18 @@ const STYLES = `
 .footer-bg-grid {
   background-size: 60px 60px;
   background-image: 
-    linear-gradient(to right, color-mix(in oklch, var(--foreground) 3%, transparent) 1px, transparent 1px),
-    linear-gradient(to bottom, color-mix(in oklch, var(--foreground) 3%, transparent) 1px, transparent 1px);
+    linear-gradient(to right, color-mix(in oklch, var(--foreground) 3.5%, transparent) 1px, transparent 1px),
+    linear-gradient(to bottom, color-mix(in oklch, var(--foreground) 3.5%, transparent) 1px, transparent 1px);
   mask-image: linear-gradient(to bottom, transparent, black 30%, black 70%, transparent);
   -webkit-mask-image: linear-gradient(to bottom, transparent, black 30%, black 70%, transparent);
 }
 
-/* Theme-adaptive Aurora Glow */
-.footer-aurora {
+/* Finale Aurora Glow (Warm Golden Ambient Lighting) */
+.footer-aurora-finale {
   background: radial-gradient(
     circle at 50% 50%, 
-    color-mix(in oklch, var(--accent-main) 20%, transparent) 0%, 
-    color-mix(in oklch, var(--micro-drama-accent) 15%, transparent) 40%, 
+    color-mix(in oklch, var(--accent-main) 25%, transparent) 0%, 
+    color-mix(in oklch, var(--micro-drama-accent) 18%, transparent) 35%, 
     transparent 70%
   );
 }
@@ -108,13 +108,13 @@ const STYLES = `
 
 /* Giant Background Text Masking */
 .footer-giant-bg-text {
-  font-size: 24vw;
+  font-size: 22vw;
   line-height: 0.75;
   font-weight: 900;
   letter-spacing: -0.05em;
   color: transparent;
-  -webkit-text-stroke: 1px color-mix(in oklch, var(--foreground) 6%, transparent);
-  background: linear-gradient(180deg, color-mix(in oklch, var(--foreground) 12%, transparent) 0%, transparent 60%);
+  -webkit-text-stroke: 1px color-mix(in oklch, var(--foreground) 7%, transparent);
+  background: linear-gradient(180deg, color-mix(in oklch, var(--foreground) 14%, transparent) 0%, transparent 60%);
   -webkit-background-clip: text;
   background-clip: text;
 }
@@ -130,7 +130,7 @@ const STYLES = `
 `;
 
 // -------------------------------------------------------------------------
-// 2. MAGNETIC BUTTON PRIMITIVE (Zero Dependency)
+// 2. MAGNETIC BUTTON PRIMITIVE
 // -------------------------------------------------------------------------
 export type MagneticButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & 
   React.AnchorHTMLAttributes<HTMLAnchorElement> & {
@@ -207,14 +207,14 @@ export const MagneticButton = React.forwardRef<HTMLElement, MagneticButtonProps>
 MagneticButton.displayName = "MagneticButton";
 
 // -------------------------------------------------------------------------
-// 3. MAIN COMPONENT
+// 3. MAIN FINALE FOOTER COMPONENT
 // -------------------------------------------------------------------------
-const MarqueeItem = () => (
+const MarqueeFinaleItem = () => (
   <div className="flex items-center space-x-12 px-6">
-    <span>CINEMATIC 4K HDR STREAMING</span> <span className="text-[var(--accent-main)]">✦</span>
-    <span>1-MINUTE MICRO-DRAMAS</span> <span className="text-[var(--micro-drama-accent)]">✦</span>
-    <span>EXCLUSIVE ORIGINAL SERIES</span> <span className="text-[var(--accent-main)]">✦</span>
-    <span>DOLBY ATMOS AUDIO</span> <span className="text-[var(--micro-drama-accent)]">✦</span>
+    <span>THANK YOU FOR STREAMING</span> <span className="text-[var(--accent-main)]">✦</span>
+    <span>DOOM OTT PLATFORM</span> <span className="text-[var(--micro-drama-accent)]">✦</span>
+    <span>4K HDR CINEMATIC EXPERIENCE</span> <span className="text-[var(--accent-main)]">✦</span>
+    <span>BITE-SIZED MICRO-DRAMAS</span> <span className="text-[var(--micro-drama-accent)]">✦</span>
     <span>UNLIMITED WATCHING</span> <span className="text-[var(--accent-main)]">✦</span>
   </div>
 );
@@ -289,62 +289,48 @@ export function CinematicFooter() {
         className="relative h-screen w-full select-none"
         style={{ clipPath: "polygon(0% 0, 100% 0%, 100% 100%, 0 100%)" }}
       >
-        {/* The actual footer stays fixed to the viewport underneath everything */}
+        {/* Fixed Footer Viewport Layer */}
         <footer className="fixed bottom-0 left-0 flex h-screen w-full flex-col justify-between overflow-hidden bg-[var(--surface-base)] text-[var(--foreground)] cinematic-footer-wrapper">
           
-          {/* Ambient Light & Grid Background */}
-          <div className="footer-aurora absolute left-1/2 top-1/2 h-[60vh] w-[80vw] -translate-x-1/2 -translate-y-1/2 animate-footer-breathe rounded-[50%] blur-[80px] pointer-events-none z-0" />
+          {/* Warm Finale Aurora & Grid Background */}
+          <div className="footer-aurora-finale absolute left-1/2 top-1/2 h-[65vh] w-[85vw] -translate-x-1/2 -translate-y-1/2 animate-footer-breathe rounded-[50%] blur-[95px] pointer-events-none z-0" />
           <div className="footer-bg-grid absolute inset-0 z-0 pointer-events-none" />
 
-          {/* Giant background text */}
+          {/* Giant background text mask: "THANK YOU" */}
           <div
             ref={giantTextRef}
             className="footer-giant-bg-text absolute -bottom-[5vh] left-1/2 -translate-x-1/2 whitespace-nowrap z-0 pointer-events-none select-none font-display font-black"
           >
-            DOOM OTT
+            THANK YOU
           </div>
 
-          {/* 1. Diagonal Sleek Marquee (Top of footer) */}
-          <div className="absolute top-12 left-0 w-full overflow-hidden border-y border-[var(--border)] bg-[var(--surface-base)]/80 backdrop-blur-md py-4 z-10 -rotate-2 scale-110 shadow-2xl">
+          {/* 1. Diagonal Sleek Marquee */}
+          <div className="absolute top-12 left-0 w-full overflow-hidden border-y border-[var(--border)] bg-[var(--surface-base)]/85 backdrop-blur-md py-4 z-10 -rotate-2 scale-110 shadow-2xl">
             <div className="flex w-max animate-footer-scroll-marquee text-xs md:text-sm font-bold tracking-[0.3em] text-[var(--text-muted)] uppercase">
-              <MarqueeItem />
-              <MarqueeItem />
+              <MarqueeFinaleItem />
+              <MarqueeFinaleItem />
             </div>
           </div>
 
-          {/* 2. Main Center Content */}
-          <div className="relative z-10 flex flex-1 flex-col items-center justify-center px-6 mt-20 w-full max-w-5xl mx-auto">
+          {/* 2. Main Center Content (Thank You Heading + Secondary Links Only) */}
+          <div className="relative z-10 flex flex-1 flex-col items-center justify-center px-6 mt-16 w-full max-w-5xl mx-auto">
             <h2
               ref={headingRef}
-              className="text-5xl md:text-8xl font-black footer-text-glow tracking-tighter mb-12 text-center font-display uppercase"
+              className="text-5xl md:text-8xl font-black footer-text-glow tracking-tighter mb-8 text-center font-display uppercase leading-tight"
             >
-              Ready to Binge?
+              Thanks For Watching
             </h2>
 
-            {/* Interactive Magnetic Pills Layout */}
-            <div ref={linksRef} className="flex flex-col items-center gap-6 w-full">
-              {/* Primary Streaming CTA Links */}
-              <div className="flex flex-wrap justify-center gap-4 w-full">
-                <MagneticButton as="a" href="/shorts" className="footer-glass-pill px-10 py-5 rounded-full text-[var(--foreground)] font-bold text-sm md:text-base flex items-center gap-3 group">
-                  <span className="text-xl">⚡</span>
-                  Watch Micro-Dramas
-                </MagneticButton>
-                
-                <MagneticButton as="a" href="/browse" className="footer-glass-pill px-10 py-5 rounded-full text-[var(--foreground)] font-bold text-sm md:text-base flex items-center gap-3 group">
-                  <span className="text-xl">🎬</span>
-                  Explore 4K Catalog
-                </MagneticButton>
-              </div>
-
-              {/* Secondary Text Links */}
-              <div className="flex flex-wrap justify-center gap-3 md:gap-6 w-full mt-2">
-                <MagneticButton as="a" href="/legal/privacy" className="footer-glass-pill px-6 py-3 rounded-full text-[var(--text-muted)] font-medium text-xs md:text-sm hover:text-[var(--foreground)]">
+            {/* Secondary Policy & Navigation Links Only (Primary Action Buttons Removed) */}
+            <div ref={linksRef} className="flex flex-col items-center gap-4 w-full">
+              <div className="flex flex-wrap justify-center gap-3 sm:gap-6 w-full">
+                <MagneticButton as="a" href="/legal/privacy" className="footer-glass-pill px-8 py-3.5 rounded-full text-[var(--text-muted)] font-bold text-xs md:text-sm hover:text-[var(--foreground)] border border-[var(--border)]">
                   Privacy Policy
                 </MagneticButton>
-                <MagneticButton as="a" href="/legal/terms" className="footer-glass-pill px-6 py-3 rounded-full text-[var(--text-muted)] font-medium text-xs md:text-sm hover:text-[var(--foreground)]">
+                <MagneticButton as="a" href="/legal/terms" className="footer-glass-pill px-8 py-3.5 rounded-full text-[var(--text-muted)] font-bold text-xs md:text-sm hover:text-[var(--foreground)] border border-[var(--border)]">
                   Terms of Service
                 </MagneticButton>
-                <MagneticButton as="a" href="/plans" className="footer-glass-pill px-6 py-3 rounded-full text-[var(--text-muted)] font-medium text-xs md:text-sm hover:text-[var(--foreground)]">
+                <MagneticButton as="a" href="/plans" className="footer-glass-pill px-8 py-3.5 rounded-full text-[var(--text-muted)] font-bold text-xs md:text-sm hover:text-[var(--foreground)] border border-[var(--border)]">
                   Subscription Plans
                 </MagneticButton>
               </div>
@@ -371,7 +357,7 @@ export function CinematicFooter() {
             <MagneticButton
               as="button"
               onClick={scrollToTop}
-              className="w-12 h-12 rounded-full footer-glass-pill flex items-center justify-center text-[var(--text-muted)] hover:text-[var(--foreground)] group order-3"
+              className="w-12 h-12 rounded-full footer-glass-pill flex items-center justify-center text-[var(--text-muted)] hover:text-[var(--foreground)] group order-3 border border-[var(--border)]"
             >
               <svg className="w-5 h-5 transform group-hover:-translate-y-1.5 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
