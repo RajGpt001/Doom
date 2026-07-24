@@ -1,8 +1,8 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Play, Plus, Check, ChevronLeft, ChevronRight, Pause, Flame } from "lucide-react";
+import { Play, Plus, Check, ChevronLeft, ChevronRight, Flame } from "lucide-react";
 import { ExtendedMediaItem } from "@/data/mockMedia";
 import { useAppStore } from "@/store/useAppStore";
 import { cn } from "@/lib/utils";
@@ -41,7 +41,7 @@ export function HeroCarousel({ items }: HeroCarouselProps) {
 
   return (
     <div
-      className="relative w-full min-h-[70vh] md:min-h-[82vh] flex items-end px-4 md:px-12 pb-12 pt-16 overflow-hidden select-none"
+      className="relative w-full min-h-[70vh] md:min-h-[82vh] flex items-end px-4 md:px-12 pb-12 pt-16 overflow-hidden select-none bg-[var(--background)]"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
     >
@@ -67,13 +67,13 @@ export function HeroCarousel({ items }: HeroCarouselProps) {
             <img
               src={activeItem.bannerUrl || activeItem.posterUrl}
               alt={activeItem.title}
-              className="w-full h-full object-cover object-top filter grayscale-[20%] brightness-75 scale-105 transition-transform duration-1000"
+              className="w-full h-full object-cover object-top filter brightness-75 scale-105 transition-transform duration-1000"
             />
           )}
 
-          {/* Matte Gradient Vignette Overlays */}
-          <div className="absolute inset-0 bg-gradient-to-t from-[var(--bg-base)] via-[var(--bg-base)]/60 to-transparent z-10 pointer-events-none" />
-          <div className="absolute inset-y-0 left-0 w-3/4 md:w-1/2 bg-gradient-to-r from-[var(--bg-base)] to-transparent z-10 pointer-events-none" />
+          {/* Vignette Gradients (Dark Red & Black Blend) */}
+          <div className="absolute inset-0 bg-gradient-to-t from-[var(--background)] via-[var(--background)]/60 to-transparent z-10 pointer-events-none" />
+          <div className="absolute inset-y-0 left-0 w-3/4 md:w-1/2 bg-gradient-to-r from-[var(--background)] to-transparent z-10 pointer-events-none" />
         </motion.div>
       </AnimatePresence>
 
@@ -90,20 +90,20 @@ export function HeroCarousel({ items }: HeroCarouselProps) {
             className="space-y-3"
           >
             <div className="flex flex-wrap items-center gap-2">
-              <span className="px-2.5 py-1 text-xs font-black uppercase tracking-widest bg-[var(--accent-main)] text-[var(--accent-foreground)] rounded-sm">
+              <span className="px-2.5 py-1 text-xs font-bold uppercase tracking-widest bg-[var(--primary)] text-white rounded-sm font-heading">
                 {activeItem.badge}
               </span>
-              <span className="px-2.5 py-1 text-xs font-bold text-[var(--text-muted)] bg-[var(--surface-elevated)] border border-[var(--border)] rounded-sm flex items-center gap-1">
-                <Flame className="w-3.5 h-3.5 text-orange-500 fill-current" /> FEATURED #{currentIndex + 1}
+              <span className="px-2.5 py-1 text-xs font-bold text-[var(--text-secondary)] bg-[var(--surface-elevated)] border border-[var(--border)] rounded-sm flex items-center gap-1">
+                <Flame className="w-3.5 h-3.5 text-[var(--primary)] fill-current" /> FEATURED #{currentIndex + 1}
               </span>
             </div>
 
-            <h1 className="font-display font-black uppercase text-3xl sm:text-5xl md:text-6xl tracking-wider text-[var(--foreground)] leading-none">
+            <h1 className="font-heading uppercase text-4xl sm:text-6xl md:text-7xl tracking-wider text-[var(--text-primary)] leading-none">
               {activeItem.title}
             </h1>
 
-            <div className="flex items-center gap-3 text-xs sm:text-sm font-semibold text-[var(--text-muted)]">
-              <span className="text-[var(--accent-main)]">{activeItem.year}</span>
+            <div className="flex items-center gap-3 text-xs sm:text-sm font-semibold text-[var(--text-secondary)]">
+              <span className="text-[var(--primary)] font-bold">{activeItem.year}</span>
               <span>•</span>
               <span className="border border-[var(--border)] px-1.5 py-0.5 rounded text-xs">
                 {activeItem.rating}
@@ -111,10 +111,10 @@ export function HeroCarousel({ items }: HeroCarouselProps) {
               <span>•</span>
               <span>{activeItem.duration || `${activeItem.seasonCount} Seasons`}</span>
               <span>•</span>
-              <span className="text-[var(--foreground)]">{activeItem.genre.join(" / ")}</span>
+              <span className="text-[var(--text-primary)]">{activeItem.genre.join(" / ")}</span>
             </div>
 
-            <p className="text-xs sm:text-sm text-[var(--text-muted)] line-clamp-3 leading-relaxed max-w-xl">
+            <p className="text-xs sm:text-sm text-[var(--text-secondary)] line-clamp-3 leading-relaxed max-w-xl">
               {activeItem.description}
             </p>
 
@@ -122,7 +122,7 @@ export function HeroCarousel({ items }: HeroCarouselProps) {
             <div className="flex flex-wrap items-center gap-3 pt-2">
               <button
                 onClick={() => setIsPlayingTrailer(!isPlayingTrailer)}
-                className="flex items-center gap-2 px-6 py-3 bg-[var(--accent-main)] text-[var(--accent-foreground)] font-display font-extrabold text-xs sm:text-sm uppercase tracking-wider rounded-sm hover:brightness-110 transition-all cursor-pointer shadow-md"
+                className="flex items-center gap-2 px-6 py-3 bg-[var(--primary)] hover:bg-[var(--primary-hover)] text-white font-heading text-sm uppercase tracking-wider rounded-sm transition-all cursor-pointer shadow-lg shadow-[var(--primary)]/20"
               >
                 <Play className="w-4 h-4 fill-current" />
                 {isPlayingTrailer ? "Stop Preview" : "Watch Trailer"}
@@ -131,13 +131,13 @@ export function HeroCarousel({ items }: HeroCarouselProps) {
               <button
                 onClick={() => toggleWatchlist(activeItem.id)}
                 className={cn(
-                  "flex items-center gap-2 px-5 py-3 font-display font-bold text-xs sm:text-sm uppercase tracking-wider rounded-sm border transition-all cursor-pointer",
+                  "flex items-center gap-2 px-5 py-3 font-heading text-sm uppercase tracking-wider rounded-sm border transition-all cursor-pointer",
                   isBookmarked
-                    ? "bg-[var(--accent-main)]/20 border-[var(--accent-main)] text-[var(--accent-main)]"
-                    : "bg-[var(--surface-elevated)] border-[var(--border)] text-[var(--foreground)] hover:border-[var(--accent-main)]"
+                    ? "bg-[var(--primary-muted)] border-[var(--primary)] text-white"
+                    : "bg-[var(--surface-elevated)] border-[var(--border)] text-[var(--text-primary)] hover:border-[var(--primary)]"
                 )}
               >
-                {isBookmarked ? <Check className="w-4 h-4" /> : <Plus className="w-4 h-4" />}
+                {isBookmarked ? <Check className="w-4 h-4 text-[var(--primary)]" /> : <Plus className="w-4 h-4" />}
                 {isBookmarked ? "In Watchlist" : "Watchlist"}
               </button>
             </div>
@@ -157,10 +157,10 @@ export function HeroCarousel({ items }: HeroCarouselProps) {
                 setCurrentIndex(idx);
               }}
               className={cn(
-                "h-1.5 rounded-full transition-all duration-300",
+                "h-1.5 rounded-full transition-all duration-300 cursor-pointer",
                 idx === currentIndex
-                  ? "w-7 bg-[var(--accent-main)]"
-                  : "w-1.5 bg-[var(--border)] hover:bg-[var(--text-muted)]"
+                  ? "w-7 bg-[var(--primary)]"
+                  : "w-1.5 bg-[var(--border)] hover:bg-[var(--text-secondary)]"
               )}
               aria-label={`Go to slide ${idx + 1}`}
             />
@@ -170,7 +170,7 @@ export function HeroCarousel({ items }: HeroCarouselProps) {
         {/* Prev & Next Buttons */}
         <button
           onClick={handlePrev}
-          className="p-2 rounded bg-[var(--surface-elevated)] border border-[var(--border)] text-[var(--foreground)] hover:border-[var(--accent-main)] transition-colors focus:outline-none cursor-pointer"
+          className="p-2 rounded bg-[var(--surface-elevated)] border border-[var(--border)] text-[var(--text-primary)] hover:border-[var(--primary)] transition-colors focus:outline-none cursor-pointer"
           aria-label="Previous slide"
         >
           <ChevronLeft className="w-4 h-4" />
@@ -178,7 +178,7 @@ export function HeroCarousel({ items }: HeroCarouselProps) {
 
         <button
           onClick={handleNext}
-          className="p-2 rounded bg-[var(--surface-elevated)] border border-[var(--border)] text-[var(--foreground)] hover:border-[var(--accent-main)] transition-colors focus:outline-none cursor-pointer"
+          className="p-2 rounded bg-[var(--surface-elevated)] border border-[var(--border)] text-[var(--text-primary)] hover:border-[var(--primary)] transition-colors focus:outline-none cursor-pointer"
           aria-label="Next slide"
         >
           <ChevronRight className="w-4 h-4" />

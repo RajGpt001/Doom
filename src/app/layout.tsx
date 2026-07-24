@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Syne, Plus_Jakarta_Sans } from "next/font/google";
+import { Bebas_Neue, Inter } from "next/font/google";
 import "./globals.css";
 
 import { ClerkClientProvider } from "@/providers/ClerkClientProvider";
@@ -8,17 +8,16 @@ import { GlobalHeader } from "@/components/layout/GlobalHeader";
 import { GlobalFooter } from "@/components/layout/GlobalFooter";
 import { CookieBanner } from "@/components/common/CookieBanner";
 
-const fontSyne = Syne({
+const headingFont = Bebas_Neue({
+  weight: "400",
   subsets: ["latin"],
-  variable: "--font-display",
-  weight: ["700", "800"],
+  variable: "--font-heading",
   display: "swap",
 });
 
-const fontBody = Plus_Jakarta_Sans({
+const bodyFont = Inter({
   subsets: ["latin"],
   variable: "--font-body",
-  weight: ["400", "500", "600", "700"],
   display: "swap",
 });
 
@@ -37,14 +36,15 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${fontSyne.variable} ${fontBody.variable}`}
+      className={`${headingFont.variable} ${bodyFont.variable}`}
+      style={{ "--font-display": "var(--font-heading)" } as React.CSSProperties}
     >
-      <body className="min-h-screen flex flex-col antialiased selection:bg-[var(--accent-main)] selection:text-[var(--accent-foreground)]">
+      <body className="min-h-screen flex flex-col antialiased bg-[var(--background)] text-[var(--text-primary)] selection:bg-[var(--primary)] selection:text-white">
         <ClerkClientProvider>
           <ThemeProvider
             attribute="class"
             defaultTheme="dark"
-            enableSystem
+            enableSystem={false}
             disableTransitionOnChange={false}
           >
             <GlobalHeader />

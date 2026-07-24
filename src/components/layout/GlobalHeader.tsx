@@ -7,7 +7,7 @@ import { Search, Bookmark, Zap, Film, Home, Menu, X, User } from "lucide-react";
 import { LogoPlaceholder } from "@/components/common/LogoPlaceholder";
 import { ThemeToggle } from "@/components/common/ThemeToggle";
 import { useAppStore } from "@/store/useAppStore";
-import { UserButton, SignedIn, SignedOut, SignInButton, useUser } from "@clerk/nextjs";
+import { UserButton, SignedIn, SignedOut, useUser } from "@clerk/nextjs";
 import { cn } from "@/lib/utils";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -41,8 +41,8 @@ export function GlobalHeader() {
       className={cn(
         "fixed top-0 left-0 right-0 z-40 transition-all duration-300 border-b select-none",
         isScrolled
-          ? "bg-[var(--surface-base)]/95 border-[var(--border)] shadow-lg py-3"
-          : "bg-[var(--surface-base)] border-transparent py-4"
+          ? "bg-[#0A0A0A]/95 border-[var(--border)] shadow-lg py-3"
+          : "bg-[#0A0A0A] border-transparent py-4"
       )}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-4">
@@ -61,18 +61,18 @@ export function GlobalHeader() {
                   key={link.name}
                   href={link.href}
                   className={cn(
-                    "flex items-center gap-1.5 px-3 py-1.5 rounded-sm font-display text-xs uppercase tracking-wider font-bold transition-colors relative focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent-main)]",
+                    "flex items-center gap-1.5 px-3 py-1.5 rounded-sm font-heading text-sm uppercase tracking-wider font-bold transition-colors relative focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--primary)]",
                     link.isSpecial
-                      ? "text-[var(--micro-drama-accent)] bg-[var(--micro-drama-bg)] border border-[var(--micro-drama-accent)]/30 hover:border-[var(--micro-drama-accent)]"
+                      ? "text-[var(--primary)] bg-[var(--primary-muted)]/40 border border-[var(--primary)]/40 hover:border-[var(--primary)]"
                       : isActive
-                      ? "text-[var(--accent-main)] bg-[var(--accent-subtle)] border border-[var(--accent-main)]/30"
-                      : "text-[var(--text-muted)] hover:text-[var(--foreground)] hover:bg-[var(--surface-elevated)]"
+                      ? "text-[var(--primary)] bg-[var(--primary-muted)]/30 border border-[var(--primary)]/50"
+                      : "text-[var(--text-secondary)] hover:text-white hover:bg-[var(--surface-elevated)]"
                   )}
                 >
                   <Icon className="w-3.5 h-3.5" />
                   <span>{link.name}</span>
                   {link.badgeCount !== undefined && link.badgeCount > 0 && (
-                    <span className="ml-1 px-1.5 py-0.2 text-[10px] bg-[var(--accent-main)] text-[var(--accent-foreground)] font-black rounded-full">
+                    <span className="ml-1 px-1.5 py-0.2 text-[10px] bg-[var(--primary)] text-white font-black rounded-full font-sans">
                       {link.badgeCount}
                     </span>
                   )}
@@ -88,7 +88,7 @@ export function GlobalHeader() {
           {/* Search Box */}
           <Link
             href="/search"
-            className="p-2 rounded bg-[var(--surface-elevated)] border border-[var(--border)] text-[var(--foreground)] hover:border-[var(--accent-main)] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent-main)]"
+            className="p-2 rounded bg-[var(--surface-elevated)] border border-[var(--border)] text-[var(--text-primary)] hover:border-[var(--primary)] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--primary)]"
             aria-label="Open Search Catalog"
             title="Search Catalog"
           >
@@ -106,7 +106,7 @@ export function GlobalHeader() {
                   <UserButton
                     appearance={{
                       elements: {
-                        avatarBox: "w-8 h-8 rounded-sm border border-[var(--border)]",
+                        avatarBox: "w-8 h-8 rounded-sm border border-[var(--primary)]",
                       },
                     }}
                   />
@@ -114,7 +114,7 @@ export function GlobalHeader() {
                 {!isSignedIn && isAppLoggedIn && (
                   <button
                     onClick={logoutMockUser}
-                    className="px-2.5 py-1 rounded bg-[var(--surface-elevated)] border border-[var(--border)] text-[10px] font-bold uppercase text-[var(--text-muted)] hover:text-[var(--foreground)] transition-colors"
+                    className="px-2.5 py-1 rounded bg-[var(--surface-elevated)] border border-[var(--border)] text-xs font-bold uppercase tracking-wider text-[var(--text-secondary)] hover:text-white hover:border-[var(--primary)] transition-colors cursor-pointer font-heading"
                   >
                     Sign Out
                   </button>
@@ -123,7 +123,7 @@ export function GlobalHeader() {
             ) : (
               /* Guest Mode: Show Sign In / Sign Up Button */
               <Link href="/welcome">
-                <button className="flex items-center gap-1.5 px-3 py-1.5 rounded-sm bg-[var(--accent-main)] text-[var(--accent-foreground)] font-display text-xs uppercase tracking-wider font-bold hover:brightness-110 transition-all cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent-main)] shadow-sm">
+                <button className="flex items-center gap-1.5 px-3 py-1.5 rounded-sm bg-[var(--primary)] text-white font-heading text-sm uppercase tracking-wider font-bold hover:bg-[var(--primary-hover)] transition-all cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--primary)] shadow-md shadow-[var(--primary)]/20">
                   <User className="w-3.5 h-3.5" /> Sign In / Sign Up
                 </button>
               </Link>
@@ -133,7 +133,7 @@ export function GlobalHeader() {
           {/* Mobile Hamburger Toggle Button */}
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="lg:hidden p-2 rounded bg-[var(--surface-elevated)] border border-[var(--border)] text-[var(--foreground)] hover:border-[var(--accent-main)] transition-colors focus:outline-none"
+            className="lg:hidden p-2 rounded bg-[var(--surface-elevated)] border border-[var(--border)] text-white hover:border-[var(--primary)] transition-colors focus:outline-none"
             aria-label="Toggle Navigation Menu"
           >
             {isMobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
@@ -149,7 +149,7 @@ export function GlobalHeader() {
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.25 }}
-            className="lg:hidden bg-[var(--surface-base)] border-b border-[var(--border)] px-4 py-4 space-y-2 overflow-hidden"
+            className="lg:hidden bg-[#0A0A0A] border-b border-[var(--border)] px-4 py-4 space-y-2 overflow-hidden"
           >
             {navLinks.map((link) => {
               const isActive = pathname === link.href;
@@ -160,12 +160,12 @@ export function GlobalHeader() {
                   href={link.href}
                   onClick={() => setIsMobileMenuOpen(false)}
                   className={cn(
-                    "flex items-center justify-between px-3 py-2.5 rounded font-display text-xs uppercase tracking-wider font-bold transition-colors",
+                    "flex items-center justify-between px-3 py-2.5 rounded font-heading text-sm uppercase tracking-wider font-bold transition-colors",
                     link.isSpecial
-                      ? "text-[var(--micro-drama-accent)] bg-[var(--micro-drama-bg)] border border-[var(--micro-drama-accent)]/30"
+                      ? "text-[var(--primary)] bg-[var(--primary-muted)]/30 border border-[var(--primary)]/30"
                       : isActive
-                      ? "text-[var(--accent-main)] bg-[var(--accent-subtle)] border border-[var(--accent-main)]/30"
-                      : "text-[var(--foreground)] hover:bg-[var(--surface-elevated)]"
+                      ? "text-[var(--primary)] bg-[var(--primary-muted)]/30 border border-[var(--primary)]/40"
+                      : "text-white hover:bg-[var(--surface-elevated)]"
                   )}
                 >
                   <div className="flex items-center gap-2">
@@ -173,7 +173,7 @@ export function GlobalHeader() {
                     <span>{link.name}</span>
                   </div>
                   {link.badgeCount !== undefined && link.badgeCount > 0 && (
-                    <span className="px-2 py-0.5 text-[10px] bg-[var(--accent-main)] text-[var(--accent-foreground)] font-black rounded-full">
+                    <span className="px-2 py-0.5 text-[10px] bg-[var(--primary)] text-white font-black rounded-full font-sans">
                       {link.badgeCount}
                     </span>
                   )}
