@@ -58,6 +58,33 @@
   --micro-drama-bg:    #2B0508;
 }
 
+/* Light Mode — warm paper-white + red accent */
+.light {
+  --background:        #F5F0EB;
+  --surface:           #FFFFFF;
+  --surface-elevated:  #F0EBE5;
+  --primary:           #C8000A;
+  --primary-hover:     #E50914;
+  --primary-muted:     #FDDCDE;
+  --text-primary:      #0A0A0A;
+  --text-secondary:    #555555;
+  --border:            #D6D0C8;
+
+  --bg-base:           #F5F0EB;
+  --surface-base:      #FFFFFF;
+  --surface-hover:     #EDE8E2;
+  --foreground:        #0A0A0A;
+  --text-muted:        #666666;
+
+  --accent-main:       #C8000A;
+  --accent-hover:      #E50914;
+  --accent-subtle:     rgba(200, 0, 10, 0.12);
+  --accent-foreground: #FFFFFF;
+
+  --micro-drama-accent: #C8000A;
+  --micro-drama-bg:    #FFF0F0;
+}
+
 body {
   background-color: var(--background);
   color: var(--text-primary);
