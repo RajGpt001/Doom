@@ -158,7 +158,12 @@ export default function IntroAnimation({ onComplete }: { onComplete?: () => void
             // Prevent default to stop browser overscroll/bounce
             e.preventDefault();
 
-            const newScroll = Math.min(Math.max(scrollRef.current + e.deltaY * 3, 0), MAX_SCROLL);
+            let newScroll = scrollRef.current;
+            if (e.deltaY > 0) {
+                newScroll = MAX_SCROLL;
+            } else if (e.deltaY < 0) {
+                newScroll = 0;
+            }
             scrollRef.current = newScroll;
             virtualScroll.set(newScroll);
         };
@@ -173,7 +178,12 @@ export default function IntroAnimation({ onComplete }: { onComplete?: () => void
             const deltaY = touchStartY - touchY;
             touchStartY = touchY;
 
-            const newScroll = Math.min(Math.max(scrollRef.current + deltaY * 4.5, 0), MAX_SCROLL);
+            let newScroll = scrollRef.current;
+            if (deltaY > 5) {
+                newScroll = MAX_SCROLL;
+            } else if (deltaY < -5) {
+                newScroll = 0;
+            }
             scrollRef.current = newScroll;
             virtualScroll.set(newScroll);
         };
